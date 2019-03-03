@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name='viewport' content='width=device-width, initial-scale=1'
+    <title></title>
+      <!-- Inputs a series of notes and chord progressions, outputs a generated melody -->
+    <script src="https://cdn.jsdelivr.net/npm/@magenta/music@1.4.2"></script>
+    <!-- Tonal is a music theory library, used to convert note pitch values to midi values -->
+    <script src="tonal.min.js"></script>
+    <!-- Tone is a WebAudio library for creating music in the browser -->
+    <script src="tone.min.js"></script>
+    <!-- <script language="javascript" type="text/javascript" src="index.js"></script> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  </head>
+
+  <body>
+    <!-- <button onclick="play()"><h1>Play Trio</h1></button> -->
+    <button onclick="startOrStop(event, player, DRUMS_INPUT)">Play</button>
+    <div>
+      <canvas id="canvas"></canvas>
+    </div>
+    <div>
+      <button onclick="playRNN(event)">Generate</button>
+    </div>
+    <div>
+      <canvas id="canvas2"></canvas>
+    </div>
+  </body>
+
+<script src="./index.js"></script>
+
+</html>
