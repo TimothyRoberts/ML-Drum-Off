@@ -3,6 +3,11 @@
   <head>
     <meta name='viewport' content='width=device-width, initial-scale=1'
     <title></title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/sketch.css">
       <!-- Inputs a series of notes and chord progressions, outputs a generated melody -->
     <script src="https://cdn.jsdelivr.net/npm/@magenta/music@1.4.2"></script>
     <!-- Tonal is a music theory library, used to convert note pitch values to midi values -->
@@ -19,19 +24,17 @@
   </head>
 
   <body>
-    <!-- <button onclick="play()"><h1>Play Trio</h1></button> -->
-    <button onclick="startOrStop(event, player, DRUMS_INPUT)">Play</button>
+    <div id="canvasContainer"></div>
+  
     <div>
       <canvas id="canvas"></canvas>
-    </div>
-    <div>
-      <button onclick="">Generate</button>
     </div>
     <div>
       <canvas id="canvas2"></canvas>
     </div>
   </body>
 
-<script src="./index.js"></script>
+  <script src="./sketch.js"></script>
+<script src="./sequence.js"></script>
 
 </html>
