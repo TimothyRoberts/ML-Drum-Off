@@ -5,6 +5,11 @@ let timeline;
 let scl = 8;
 let timelineIncrement;
 
+//These define the input sequence attributes
+let inputTime;
+let inputStart;
+let inputEnd;
+
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight);
 	canvas.parent('canvasContainer');
@@ -12,7 +17,7 @@ function setup() {
                endX: windowWidth/scl*7,
                beginY: windowHeight/scl*6,
                endY: windowHeight/scl*6.5,
-               startPos: 0,
+               pos: 0,
                increment: windowWidth/250
              };
 }
@@ -29,7 +34,7 @@ function draw() {
 }
 
 function keyPressed() {
-  if (keyCode === LEFT_ARROW) {
+  if ((key == 'F') || (key == 'f')) {
     console.log("pressed");
     playRNN(event)
     timelineActivated = true;
@@ -39,10 +44,13 @@ function keyPressed() {
 function activateTimeline() {
   fill(255);
   stroke(255);
-  // console.log("draw");
-  rect(timeline.beginX, timeline.beginY, timeline.startPos += timeline.increment, 20);
-  if(timeline.startPos > timeline.endX - timeline.beginX ) {
-    timeline.startPos = 0;
+  inputTime = map(timeline.pos, 0, timeline.endX - timeline.beginX, 0, 5);
+  console.log(inputTime);
+  // console.log(timeline.pos);
+  rect(timeline.beginX, timeline.beginY, timeline.pos += timeline.increment, 20);
+  if(timeline.pos > timeline.endX - timeline.beginX ) {
+    inputTime = 0;
+    timeline.pos = 0;
     timelineActivated = false;
   }
 }
