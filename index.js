@@ -1,8 +1,19 @@
-// Magenta has an object called mm that has a constructor called MusicRNN attatched to it
-// To create an instance giving us access to methods related to our chosen model, we pass the checkpoint's URL into the constructor
-// import * as mm from '@magenta/music';
-// const checkpointURL = "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/drum_kit_rnn";
-// const drums_rnn = mm.MusicRNN(checkpointURL);
+function setup() {
+  createCanvas(800, 200);
+}
+
+function draw() {
+  background(20, 140, 200);
+}
+
+function keyPressed() {
+  if (keyCode === LEFT_ARROW) {
+    console.log("pressed");
+    playRNN(event)
+  }
+}
+
+
 const checkpointURL = "model";
 console.log(checkpointURL);
 let drums_rnn = mm.MusicRNN(checkpointURL);
@@ -127,13 +138,13 @@ function setupDrumsRNN() {
 
 async function playRNN(event) {
   console.log(DRUMS_INPUT);
-  if (rnnPlayer.isPlaying()) {
-    rnnPlayer.stop();
-    event.target.textContent = 'Play';
-    return;
-  } else {
-    event.target.textContent = 'Stop';
-  }
+  // if (rnnPlayer.isPlaying()) {
+  //   rnnPlayer.stop();
+  //   event.target.textContent = 'Play';
+  //   return;
+  // } else {
+  //   event.target.textContent = 'Stop';
+  // }
 
   // The model expects a quantized sequence
   const qns = mm.sequences.quantizeNoteSequence(DRUMS_INPUT, 4);
