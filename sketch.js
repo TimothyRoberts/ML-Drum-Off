@@ -6,9 +6,16 @@ let scl = 8;
 let timelineIncrement;
 
 //These define the input sequence attributes
+let collectingInput = false;
+let inputPitch;
 let inputTime;
 let inputStart;
 let inputEnd;
+
+//These store input details in arrays
+let startInputs = [];
+let endInputs = [];
+let inputPitches = [];
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight);
@@ -35,9 +42,32 @@ function draw() {
 
 function keyPressed() {
   if ((key == 'F') || (key == 'f')) {
-    console.log("pressed");
-    playRNN(event)
-    timelineActivated = true;
+    inputPitch = 42;
+
+    //run input timeline
+    if (collectingInput == false) {
+      timelineActivated = true;
+      collectingInput = true;
+
+      //collect input details
+      inputPitches.push(inputPitch);
+      startInputs.push(0);
+    } else {
+      inputPitches.push(inputPitch);
+      startInputs.push(inputTime);
+    }
+    // playRNN(event)
+
+  }
+}
+
+function keyReleased() {
+  if ((key == 'F') || (key == 'f')) {
+    //run input timeline
+    if (collectingInput) {
+      //collect input details
+      endInputs.push(inputTime);
+    }
   }
 }
 
@@ -52,6 +82,7 @@ function activateTimeline() {
     inputTime = 0;
     timeline.pos = 0;
     timelineActivated = false;
+    collectingInput = false;
   }
 }
 
