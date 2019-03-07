@@ -4,58 +4,16 @@ const checkpointURL = "model";
 console.log(checkpointURL);
 let drums_rnn = mm.MusicRNN(checkpointURL);
 console.log(drums_rnn);
-let DRUMS_INPUT;
+
 let player, player2, viz, vis2, vizPLayer, vizPLayer2;
 let music_rnn, rnnPlayer;
-createSampleSequences();
+// createSampleSequences();
 createSamplePlayers();
 setupDrumsRNN();
 
 
 // player = new mm.Player();
 
-function createSampleSequences() {
-  DRUMS_INPUT = {
-  ticksPerQuarter: 220,
-  totalTime: 1.5,
-  timeSignatures: [{time: 0, numerator: 4, denominator: 4}],
-  tempos: [{time: 0, qpm: 120}],
-  notes: [
-    {startTime: 0, endTime: 0.5, pitch: 40, velocity: 100, isDrum: true}, {
-      instrument: 0,
-      startTime: 0.5,
-      endTime: 1.0,
-      pitch: 39,
-      velocity: 100,
-      isDrum: true
-    },
-    {
-      instrument: 0,
-      startTime: 0.5,
-      endTime: 1.0,
-      pitch: 43,
-      velocity: 100,
-      isDrum: true
-    },
-    {startTime: 1.0, endTime: 1.5, pitch: 35, velocity: 100, isDrum: true}, {
-      instrument: 0,
-      startTime: 1.5,
-      endTime: 2.0,
-      pitch: 39,
-      velocity: 100,
-      isDrum: true
-    },
-    {
-      instrument: 0,
-      startTime: 1.5,
-      endTime: 2.0,
-      pitch: 43,
-      velocity: 100,
-      isDrum: true
-    }
-  ]
-}
-}
 
 function createSamplePlayers() {
   // A plain NoteSequence player
@@ -107,8 +65,8 @@ function createGeneratedSample(ns) {
 }
 
 
-var rnn_steps = 15;
-var rnn_temperature = 1.2;
+var rnn_steps = 25;
+var rnn_temperature = 1.5;
 
 function setupDrumsRNN() {
   // Initialize model
