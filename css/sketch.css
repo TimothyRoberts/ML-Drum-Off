@@ -1,4 +1,5 @@
 canvas {height: 0px;}
+button {background-color: orange;}
 
 .canvasContainer {
   position: fixed;

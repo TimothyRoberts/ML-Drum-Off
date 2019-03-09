@@ -3,6 +3,8 @@
 let scene1, scene2, scene3;
 let scl = 8;
 let w, h, col, row;
+let ringoImg;
+let chooseBtn;
 
 //These define the length of each round
 // let timelineActivated = false;
@@ -26,8 +28,16 @@ let w, h, col, row;
 //
 // let DRUMS_INPUT;
 
+/********************* PRELOAD *********************
+ Preload loads the assets of the application
+***************************************************/
+
+function preload() {
+  ringoImg = loadImage('assets/ringo_icon.png');
+}
+
  /********************** SETUP **********************
-  setup is called at the start of the application.
+  Setup is called at the start of the application.
 	sets the canvas to the dimensions of the user's
 	device. and activates the home screen (scene1).
  ***************************************************/
@@ -42,14 +52,16 @@ function setup() {
 
 	canvas.parent('canvasContainer');
 	textAlign(CENTER, CENTER);
+	imageMode(CENTER);
 
-	/* (width, height, column, row, header, subheader) */
+	/* (width, height, column, row, header, subheader, ringoImg) */
 	scene1 = new Scene1(w,
 									    h,
 										  col,
 										  row,
 									 	  "ML DRUM-OFF",
-										  "SELECT OPPONENT");
+										  "SELECT OPPONENT",
+										  ringoImg);
   // timeline = new Timeline()
 	// { beginX: windowWidth/scl,
   //              endX: windowWidth/scl*7,
@@ -58,6 +70,15 @@ function setup() {
   //              pos: 0,
   //              increment: windowWidth/incrementScl
   //            };
+
+	chooseBtn = createButton('choose drummer');
+	chooseBtn.parent('chooseBtn')
+  chooseBtn.position(col*4, row*7);
+	chooseBtn.mousePressed(sayHi);
+}
+
+function sayHi() {
+	console.log("hi");
 }
 
 class Scene {
@@ -76,24 +97,48 @@ class Scene {
 }
 
 class Scene1 extends Scene {
-	constructor(w, h, col, row, header, subheader, isActive) {
-		super(w, h, col, row, isActive);
+	constructor(w, h, col, row, header, subheader, ringoImg) {
+		super(w, h, col, row);
+		/* Text/Image max and min size */
 		this.header = header;
-		/* Header max size */
-		(windowWidth/14 > 80) ? this.headerSize = 80 : this.headerSize = windowWidth/14;
+		(windowWidth/15 > 80) ? this.headerSize = 80
+		: (windowWidth/15 < 40) ? this.headerSize = 40
+		: this.headerSize = windowWidth/15;
+
 		this.subheader = subheader;
+		(windowWidth/50 > 30) ? this.subheaderSize = 30
+		: (windowWidth/50 < 18) ? this.subheaderSize = 18
+		: this.subheaderSize = windowWidth/50;
+
+		this.ringoImg = ringoImg;
+		(windowWidth/6 > 150) ? this.iconSize = 150
+		: (windowWidth/6 < 100) ? this.iconSize = 100
+		: this.iconSize = windowWidth/6;
+
 	}
 
 	display() {
-		super.display();
+		// super.display();
+		fill(255);
 		textSize(this.headerSize);
 		text(this.header, this.col*4, this.row);
+		textSize(this.subheaderSize);
+		text(this.subheader, this.col*4, this.row*2);
+		image(ringoImg, this.col*4, this.row*3.5, this.iconSize, this.iconSize);
+		textSize(12);
+		text(`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod\n
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum`, this.col*4, this.row*5.5);
 	}
+
+
 }
 
 function draw() {
   background(40);
 	scene1.display();
+  // chooseButton.mousePressed();
   // stroke(255);
   // line(timeline.beginX, timeline.beginY, timeline.beginX, timeline.endY);
   // line(timeline.endX, timeline.beginY, timeline.endX, timeline.endY);
@@ -217,6 +262,8 @@ function windowResized() {
 
 	col = windowWidth/scl;
 	row = h/scl;
+	
+  chooseBtn.position(col*4, row*7);
 
 
 	/* (width, height, column, row, header, subheader) */
