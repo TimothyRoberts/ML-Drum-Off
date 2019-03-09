@@ -2,6 +2,7 @@
 
 let scene1, scene2, scene3;
 let scl = 8;
+let w, h, col, row;
 
 //These define the length of each round
 // let timelineActivated = false;
@@ -26,20 +27,29 @@ let scl = 8;
 // let DRUMS_INPUT;
 
  /********************** SETUP **********************
-  setup sets the dimensions of the application to the
-  dimensions of the user's device.
+  setup is called at the start of the application.
+	sets the canvas to the dimensions of the user's
+	device. and activates the home screen (scene1).
  ***************************************************/
 
 function setup() {
-	canvas = createCanvas(windowWidth, windowHeight);
+
+	(windowHeight < 600) ? h = 600 : h = windowHeight;
+	w = windowWidth;
+	canvas = createCanvas(windowWidth, h);
+	col = windowWidth/scl;
+	row = h/scl;
+
 	canvas.parent('canvasContainer');
 	textAlign(CENTER, CENTER);
 
-	/* (column, row, title, isActive) */
-	scene1 = new Scene(windowWidth/scl,
-										 windowHeight/scl,
-										 "ML DRUM-OFF",
-										 true);
+	/* (width, height, column, row, header, subheader) */
+	scene1 = new Scene1(w,
+									    h,
+										  col,
+										  row,
+									 	  "ML DRUM-OFF",
+										  "SELECT OPPONENT");
   // timeline = new Timeline()
 	// { beginX: windowWidth/scl,
   //              endX: windowWidth/scl*7,
@@ -51,16 +61,33 @@ function setup() {
 }
 
 class Scene {
-	constructor(col, row, title, isActive) {
+	constructor(w, h, col, row) {
+		this.w = w;
+		this.h = h;
 		this.col = col;
 		this.row = row;
-		this.title = title;
-		this.isActive = isActive;
+		this.isActive = false;
 	}
 
 	display() {
 		fill(255);
 		text(this.title, this.col*4, this.row);
+	}
+}
+
+class Scene1 extends Scene {
+	constructor(w, h, col, row, header, subheader, isActive) {
+		super(w, h, col, row, isActive);
+		this.header = header;
+		/* Header max size */
+		(windowWidth/14 > 80) ? this.headerSize = 80 : this.headerSize = windowWidth/14;
+		this.subheader = subheader;
+	}
+
+	display() {
+		super.display();
+		textSize(this.headerSize);
+		text(this.header, this.col*4, this.row);
 	}
 }
 
@@ -183,13 +210,22 @@ function draw() {
 
 //Resizes canvas when window is resized
 function windowResized() {
-	resizeCanvas(windowWidth, windowHeight);
 
-	/* (column, row, title, isActive) */
-	scene1 = new Scene(windowWidth/scl,
-										 windowHeight/scl,
-										 "ML DRUM-OFF",
-										 true);
+	(windowHeight < 600) ? h = 600 : h = windowHeight;
+
+	resizeCanvas(windowWidth, h);
+
+	col = windowWidth/scl;
+	row = h/scl;
+
+
+	/* (width, height, column, row, header, subheader) */
+	scene1 = new Scene1(w,
+									    h,
+										  col,
+										  row,
+									 	  "ML DRUM-OFF",
+										  "SELECT OPPONENT");
 
  //  timeline = { beginX: windowWidth/scl,
  //               endX: windowWidth/scl*7,
