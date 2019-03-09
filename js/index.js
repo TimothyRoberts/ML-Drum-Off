@@ -4,7 +4,7 @@ let scene1, scene2, scene3;
 let scl = 8;
 let w, h, col, row;
 let ringoImg;
-let chooseBtn;
+let homeBtn, chooseBtn;
 
 //These define the length of each round
 // let timelineActivated = false;
@@ -54,14 +54,9 @@ function setup() {
 	textAlign(CENTER, CENTER);
 	imageMode(CENTER);
 
-	/* (width, height, column, row, header, subheader, ringoImg) */
-	scene1 = new Scene1(w,
-									    h,
-										  col,
-										  row,
-									 	  "ML DRUM-OFF",
-										  "SELECT OPPONENT",
-										  ringoImg);
+	/* (width, height, column, row, isActive, header, subheader, ringoImg) */
+	scene1 = new Scene1(w, h, col, row, true, "ML DRUM-OFF", "SELECT OPPONENT", ringoImg);
+	scene2 = new Scene2(w, h, col, row, false, "ROUND 1");
   // timeline = new Timeline()
 	// { beginX: windowWidth/scl,
   //              endX: windowWidth/scl*7,
@@ -74,71 +69,50 @@ function setup() {
 	chooseBtn = createButton('choose drummer');
 	chooseBtn.parent('chooseBtn')
   chooseBtn.position(col*4, row*7);
-	chooseBtn.mousePressed(sayHi);
+	chooseBtn.mousePressed(activateScene2);
+
+	homeBtn = createButton('Home');
+	homeBtn.parent('homeBtn')
+  homeBtn.position(col, row);
+	homeBtn.mousePressed(activateScene1);
 }
 
-function sayHi() {
-	console.log("hi");
+function activateScene2() {
+	scene1.isActive = false;
+	chooseBtn.hide();
 }
 
-class Scene {
-	constructor(w, h, col, row) {
-		this.w = w;
-		this.h = h;
-		this.col = col;
-		this.row = row;
-		this.isActive = false;
-	}
-
-	display() {
-		fill(255);
-		text(this.title, this.col*4, this.row);
-	}
+function activateScene1() {
+	scene2.isActive = false;
+	scene1.isActive = true;
+	chooseBtn.show();
 }
 
-class Scene1 extends Scene {
-	constructor(w, h, col, row, header, subheader, ringoImg) {
+class Scene2 extends Scene {
+	constructor(w, h, col, row, isActive, header, ringoImg) {
 		super(w, h, col, row);
+		this.isActive = isActive;
 		/* Text/Image max and min size */
 		this.header = header;
 		(windowWidth/15 > 80) ? this.headerSize = 80
 		: (windowWidth/15 < 40) ? this.headerSize = 40
 		: this.headerSize = windowWidth/15;
-
-		this.subheader = subheader;
-		(windowWidth/50 > 30) ? this.subheaderSize = 30
-		: (windowWidth/50 < 18) ? this.subheaderSize = 18
-		: this.subheaderSize = windowWidth/50;
-
-		this.ringoImg = ringoImg;
-		(windowWidth/6 > 150) ? this.iconSize = 150
-		: (windowWidth/6 < 100) ? this.iconSize = 100
-		: this.iconSize = windowWidth/6;
-
 	}
 
 	display() {
-		// super.display();
+
 		fill(255);
 		textSize(this.headerSize);
 		text(this.header, this.col*4, this.row);
-		textSize(this.subheaderSize);
-		text(this.subheader, this.col*4, this.row*2);
-		image(ringoImg, this.col*4, this.row*3.5, this.iconSize, this.iconSize);
-		textSize(12);
-		text(`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod\n
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum`, this.col*4, this.row*5.5);
+
 	}
-
-
 }
 
 function draw() {
   background(40);
-	scene1.display();
-  // chooseButton.mousePressed();
+	scene1.isActive ? scene1.display()
+	: scene2.display();
+
   // stroke(255);
   // line(timeline.beginX, timeline.beginY, timeline.beginX, timeline.endY);
   // line(timeline.endX, timeline.beginY, timeline.endX, timeline.endY);
@@ -262,17 +236,13 @@ function windowResized() {
 
 	col = windowWidth/scl;
 	row = h/scl;
-	
+
   chooseBtn.position(col*4, row*7);
 
 
-	/* (width, height, column, row, header, subheader) */
-	scene1 = new Scene1(w,
-									    h,
-										  col,
-										  row,
-									 	  "ML DRUM-OFF",
-										  "SELECT OPPONENT");
+
+		/* (width, height, column, row, isActive, header, subheader, ringoImg) */
+		scene1 = new Scene1(w, h, col, row, true, "ML DRUM-OFF", "SELECT OPPONENT", ringoImg);
 
  //  timeline = { beginX: windowWidth/scl,
  //               endX: windowWidth/scl*7,
