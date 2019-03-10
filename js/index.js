@@ -42,6 +42,7 @@ function preload() {
 	device. and activates the home screen (scene1).
  ***************************************************/
 
+
 function setup() {
 
 	(windowHeight < 600) ? h = 600 : h = windowHeight;
@@ -55,21 +56,13 @@ function setup() {
 	imageMode(CENTER);
 
 	/* (width, height, column, row, isActive, header, subheader, ringoImg) */
-	scene1 = new Scene1(w, h, col, row, true, "ML DRUM-OFF", "SELECT OPPONENT", ringoImg);
-	scene2 = new Scene2(w, h, col, row, false, "ROUND 1");
-  // timeline = new Timeline()
-	// { beginX: windowWidth/scl,
-  //              endX: windowWidth/scl*7,
-  //              beginY: windowHeight/scl*6,
-  //              endY: windowHeight/scl*6.5,
-  //              pos: 0,
-  //              increment: windowWidth/incrementScl
-  //            };
+	scene1 = new Scene1(w, h, col, row, false, "ML DRUM-OFF", "SELECT OPPONENT", ringoImg);
+	scene2 = new Scene2(w, h, col, row, true, "ROUND 1");
 
-	chooseBtn = createButton('choose drummer');
-	chooseBtn.parent('chooseBtn')
-  chooseBtn.position(col*4, row*7);
-	chooseBtn.mousePressed(activateScene2);
+	// chooseBtn = createButton('choose drummer');
+	// chooseBtn.parent('chooseBtn')
+  // chooseBtn.position(col*4, row*7);
+	// chooseBtn.mousePressed(activateScene2);
 
 	homeBtn = createButton('Home');
 	homeBtn.parent('homeBtn')
@@ -88,96 +81,26 @@ function activateScene1() {
 	chooseBtn.show();
 }
 
-class Scene2 extends Scene {
-	constructor(w, h, col, row, isActive, header, ringoImg) {
-		super(w, h, col, row);
-		this.isActive = isActive;
-		/* Text/Image max and min size */
-		this.header = header;
-		(windowWidth/15 > 80) ? this.headerSize = 80
-		: (windowWidth/15 < 40) ? this.headerSize = 40
-		: this.headerSize = windowWidth/15;
-	}
-
-	display() {
-
-		fill(255);
-		textSize(this.headerSize);
-		text(this.header, this.col*4, this.row);
-
-	}
-}
 
 function draw() {
   background(40);
-	scene1.isActive ? scene1.display()
-	: scene2.display();
+	if (scene1.isActive) {
+    scene1.display();
+  } else if (scene2.isActive) {
+    scene2.display();
+  }
 
-  // stroke(255);
-  // line(timeline.beginX, timeline.beginY, timeline.beginX, timeline.endY);
-  // line(timeline.endX, timeline.beginY, timeline.endX, timeline.endY);
-	//
+
+  if (scene2.activeTimeline) {scene2.activateTimeline();}
+
   // if(timelineActivated) {
   //   activateTimeline();
   // }
 }
 
-// function keyPressed() {
-//   //HI-HAT
-//   if ((key == 'F') || (key == 'f')) {
-//     inputPitch = 42;
-//     //if timeline is not active, start timeline
-//     if (collectingInput == false) {
-//       timelineActivated = true;
-//       collectingInput = true;
-//       //collect input details
-//       inputPitches.push(inputPitch);
-//       startInputs.push(0);
-//       console.log("Hi-Hat!");
-//     } else {
-//       inputPitches.push(inputPitch);
-//       startInputs.push(inputTime);
-//       console.log("Hi-Hat!");
-//     }
-//   }
-//
-//     //SNARE
-//     if ((key == 'G') || (key == 'g')) {
-//       inputPitch = 36;
-//       //if timeline is not active, start timeline
-//       if (collectingInput == false) {
-//         timelineActivated = true;
-//         collectingInput = true;
-//         //collect input details
-//         inputPitches.push(inputPitch);
-//         startInputs.push(0);
-//         console.log("Snare!");
-//       } else {
-//         inputPitches.push(inputPitch);
-//         startInputs.push(inputTime);
-//         console.log("Snare!");
-//       }
-//     }
-// }
-//
-// function keyReleased() {
-//   if ((key == 'F') || (key == 'f')) {
-//     //run input timeline
-//     if (collectingInput) {
-//       //collect input details
-//       endInputs.push(inputTime);
-//     }
-//   }
-//
-//   if ((key == 'G') || (key == 'g')) {
-//     //run input timeline
-//     if (collectingInput) {
-//       //collect input details
-//       endInputs.push(inputTime);
-//     }
-//   }
-// }
-
+function keyPressed() {
+  scene2.isActive ? scene2.activeTimeline = true : console.log("");
+}
 
 // function activateTimeline() {
 //   fill(255);
@@ -257,3 +180,59 @@ function windowResized() {
  // timelineActivated = false;
  // collectingInput = false;
 }
+
+// function keyPressed() {
+//   //HI-HAT
+//   if ((key == 'F') || (key == 'f')) {
+//     inputPitch = 42;
+//     //if timeline is not active, start timeline
+//     if (collectingInput == false) {
+//       timelineActivated = true;
+//       collectingInput = true;
+//       //collect input details
+//       inputPitches.push(inputPitch);
+//       startInputs.push(0);
+//       console.log("Hi-Hat!");
+//     } else {
+//       inputPitches.push(inputPitch);
+//       startInputs.push(inputTime);
+//       console.log("Hi-Hat!");
+//     }
+//   }
+//
+//     //SNARE
+//     if ((key == 'G') || (key == 'g')) {
+//       inputPitch = 36;
+//       //if timeline is not active, start timeline
+//       if (collectingInput == false) {
+//         timelineActivated = true;
+//         collectingInput = true;
+//         //collect input details
+//         inputPitches.push(inputPitch);
+//         startInputs.push(0);
+//         console.log("Snare!");
+//       } else {
+//         inputPitches.push(inputPitch);
+//         startInputs.push(inputTime);
+//         console.log("Snare!");
+//       }
+//     }
+// }
+//
+// function keyReleased() {
+//   if ((key == 'F') || (key == 'f')) {
+//     //run input timeline
+//     if (collectingInput) {
+//       //collect input details
+//       endInputs.push(inputTime);
+//     }
+//   }
+//
+//   if ((key == 'G') || (key == 'g')) {
+//     //run input timeline
+//     if (collectingInput) {
+//       //collect input details
+//       endInputs.push(inputTime);
+//     }
+//   }
+// }

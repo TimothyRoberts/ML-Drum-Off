@@ -1,12 +1,22 @@
+
+/********************** SCENE **********************
+ All scene objects share the same dimensions
+***************************************************/
+
 class Scene {
 	constructor(w, h, col, row, isActive) {
 		this.w = w;
 		this.h = h;
 		this.col = col;
 		this.row = row;
-		this.isActive = true;
+		this.isActive = isActive;
 	}
 }
+
+
+ /********************* SCENE 1 *********************
+	Scene 1 extends scene and displays the home screen
+ ***************************************************/
 
 class Scene1 extends Scene {
 	constructor(w, h, col, row, isActive, header, subheader, ringoImg) {
