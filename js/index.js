@@ -1,8 +1,7 @@
 ////////////////// INDEX SCRIPT //////////////////
 
-let scene1, scene2, scene3;
-let scl = 8;
-let w, h, col, row;
+let activeScene;
+let w, h;
 let ringoImg;
 let homeBtn, chooseBtn;
 
@@ -48,26 +47,21 @@ function setup() {
 	(windowHeight < 600) ? h = 600 : h = windowHeight;
 	w = windowWidth;
 	canvas = createCanvas(windowWidth, h);
-	col = windowWidth/scl;
-	row = h/scl;
 
 	canvas.parent('canvasContainer');
 	textAlign(CENTER, CENTER);
 	imageMode(CENTER);
 
 	/* (width, height, column, row, isActive, header, subheader, ringoImg) */
-	scene1 = new Scene1(w, h, col, row, false, "ML DRUM-OFF", "SELECT OPPONENT", ringoImg);
-	scene2 = new Scene2(w, h, col, row, true, "ROUND 1");
+	activeScene = new DrumOff(w, h, ringoImg);
+  // activeScene.setup();
+	// scene2 = new Scene2(w, h, col, row, true, "ROUND 1");
 
-	// chooseBtn = createButton('choose drummer');
-	// chooseBtn.parent('chooseBtn')
-  // chooseBtn.position(col*4, row*7);
-	// chooseBtn.mousePressed(activateScene2);
 
-	homeBtn = createButton('Home');
-	homeBtn.parent('homeBtn')
-  homeBtn.position(col, row);
-	homeBtn.mousePressed(activateScene1);
+	// homeBtn = createButton('Home');
+	// homeBtn.parent('homeBtn')
+  // homeBtn.position(col, row);
+	// homeBtn.mousePressed(activateScene1);
 }
 
 function activateScene2() {
@@ -84,15 +78,16 @@ function activateScene1() {
 
 function draw() {
   background(40);
-	if (scene1.isActive) {
-    scene1.display();
-  } else if (scene2.isActive) {
-    scene2.display();
-    scene2.drumkit.show();
-  }
+  activeScene.run();
+	// if (scene1.isActive) {
+  //   scene1.display();
+  // } else if (scene2.isActive) {
+  //   scene2.display();
+  //   scene2.drumkit.show();
+  // }
 
 
-  if (scene2.activeTimeline) {scene2.activateTimeline();}
+  // if (scene2.activeTimeline) {scene2.activateTimeline();}
 
   // if(timelineActivated) {
   //   activateTimeline();
@@ -100,16 +95,22 @@ function draw() {
 }
 
 function keyPressed() {
-  if (scene2.isActive == true && scene2.activeTimeline == false) {
-    scene2.activeTimeline = true;
-  }
-
-  if (scene2.activeTimeline) {
-    ((key == 'F') || (key == 'f')) ? scene2.drumkit.hihat()
+  if(activeScene.id == "drumOff") {
+    activeScene.activeTimeline = true;
+    ((key == 'F') || (key == 'f')) ? activeScene.drumkit.hihat()
     : console.log("no");
   }
-
 }
+//   if (scene2.isActive == true && scene2.activeTimeline == false) {
+//     scene2.activeTimeline = true;
+//   }
+//
+//   if (scene2.activeTimeline) {
+//     ((key == 'F') || (key == 'f')) ? scene2.drumkit.hihat()
+//     : console.log("no");
+//   }
+//
+// }
 
 // function activateTimeline() {
 //   fill(255);
@@ -174,7 +175,7 @@ function windowResized() {
 
 
 		/* (width, height, column, row, isActive, header, subheader, ringoImg) */
-		scene1 = new Scene1(w, h, col, row, true, "ML DRUM-OFF", "SELECT OPPONENT", ringoImg);
+		// scene1 = new Scene1(w, h, col, row, true, "ML DRUM-OFF", "SELECT OPPONENT", ringoImg);
 
  //  timeline = { beginX: windowWidth/scl,
  //               endX: windowWidth/scl*7,
