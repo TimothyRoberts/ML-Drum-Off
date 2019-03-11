@@ -52,7 +52,7 @@ class DrumOff extends Scene {
     inputPitches.push(pitch);
     //first input from keyPressed appears undefined (null)
     (this.inputTime == null) ? startInputs.push(0) : startInputs.push(this.inputTime);
-    playTempSequence(pitch);
+    playTempSequence(pitch, this.inputTime);
   }
 
   addInputTime() {
