@@ -4,26 +4,19 @@ let activeScene;
 let w, h;
 let ringoImg;
 let homeBtn, chooseBtn;
+let DRUMS_INPUT;
 
-//These define the length of each round
-// let timelineActivated = false;
-// let acceptSequence = false;
-// let timeline;
-// let scl = 8;
-// let timelineIncrement;
-// let incrementScl = 250;
-//
 // //These define the input sequence attributes
 // let collectingInput = false;
-// let inputPitch;
-// let inputTime;
-// let inputStart;
-// let inputEnd;
+let inputPitch;
+let inputTime;
+let inputStart;
+let inputEnd;
 //
 // //These store input details in arrays
-// let startInputs = [];
-// let endInputs = [];
-// let inputPitches = [];
+let startInputs = [];
+let endInputs = [];
+let inputPitches = [];
 //
 // let DRUMS_INPUT;
 
@@ -35,11 +28,11 @@ function preload() {
   ringoImg = loadImage('assets/ringo_icon.png');
 }
 
- /********************** SETUP **********************
-  Setup is called at the start of the application.
-	sets the canvas to the dimensions of the user's
-	device. and activates the home screen (scene1).
- ***************************************************/
+/********************** SETUP **********************
+ Setup is called at the start of the application.
+ sets the canvas to the dimensions of the user's
+ device. and activates the home screen (scene1).
+***************************************************/
 
 
 function setup() {
@@ -94,12 +87,24 @@ function draw() {
   // }
 }
 
+
 function keyPressed() {
   if(activeScene.id == "drumOff") {
     activeScene.activeTimeline = true;
-    ((key == 'F') || (key == 'f')) ? activeScene.drumkit.hihat()
+    ((key == 'F') || (key == 'f')) ? activeScene.addInputPitch(42) //pitch
     : console.log("no");
   }
+}
+
+function keyReleased() {
+  if(activeScene.id == "drumOff") {
+    if (activeScene.activeTimeline) {
+      ((key == 'F') || (key == 'f')) ? activeScene.addInputTime() //pitch
+      : console.log("no");
+    }
+
+  }
+
 }
 //   if (scene2.isActive == true && scene2.activeTimeline == false) {
 //     scene2.activeTimeline = true;
@@ -135,29 +140,6 @@ function keyPressed() {
 //   }
 // }
 
-
-// function createSampleSequences() {
-//   DRUMS_INPUT = {
-//   ticksPerQuarter: 220,
-//   totalTime: 5,
-//   timeSignatures: [{time: 0, numerator: 4, denominator: 4}],
-//   tempos: [{time: 0, qpm: 120}],
-//   notes: []
-//   }
-//
-//   for(let i = 0; i < startInputs.length; i++) {
-//     DRUMS_INPUT.notes.push({
-//       startTime: startInputs[i], endTime: endInputs[i], pitch: inputPitches[i], velocity: 100, isDrum: true}, {
-//       instrument: 10,
-//       startTime: startInputs[i],
-//       endTime: endInputs[i],
-//       pitch: inputPitches[i],
-//       velocity: 100,
-//       isDrum: true
-//     })
-//   }
-//
-// }
 
 
 //Resizes canvas when window is resized

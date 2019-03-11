@@ -15,6 +15,29 @@ setupDrumsRNN();
 // player = new mm.Player();
 
 
+function createSampleSequences() {
+  DRUMS_INPUT = {
+  ticksPerQuarter: 220,
+  totalTime: 5,
+  timeSignatures: [{time: 0, numerator: 4, denominator: 4}],
+  tempos: [{time: 0, qpm: 120}],
+  notes: []
+  }
+
+  for(let i = 0; i < startInputs.length; i++) {
+    DRUMS_INPUT.notes.push({
+      startTime: startInputs[i], endTime: endInputs[i], pitch: inputPitches[i], velocity: 100, isDrum: true}, {
+      instrument: 10,
+      startTime: startInputs[i],
+      endTime: endInputs[i],
+      pitch: inputPitches[i],
+      velocity: 100,
+      isDrum: true
+    })
+  }
+
+}
+
 function createSamplePlayers() {
   // A plain NoteSequence player
   player = new mm.Player();
@@ -95,7 +118,7 @@ async function playRNN(event) {
   const gns = await drums_rnn.continueSequence(qns, rnn_steps, rnn_temperature);
 
   console.log(gns);
-  createGeneratedSample(gns);
+  // createGeneratedSample(gns);
   // .then((sample) => rnnPlayer.start(sample))
   // .then(console.log(sample));
 

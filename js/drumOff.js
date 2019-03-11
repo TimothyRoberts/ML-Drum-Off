@@ -8,9 +8,6 @@ class DrumOff extends Scene {
     this.incrementScl = 250;
     this.increment = windowWidth/this.incrementScl;
     this.inputTime;
-    this.startInputs = [];
-    this.endInputs = [];
-    this.pitchInputs = [];
 
     this.drumkit = new Drumkit(this.w, this.h, this.col, this.row, this.scl);
 
@@ -33,14 +30,32 @@ class DrumOff extends Scene {
 	}
 
   runTimeline() {
-    // this.inputTime = map()
+    this.inputTime = map(this.timelinePos, 0, this.col*6, 0, 5);
     rect(this.col, this.row*6, this.timelinePos += this.increment, 20);
     if(this.timelinePos > this.col*6) {
+      createSampleSequences();
+      //     inputTime = 0;
+      //     timeline.pos = 0;
+      //     timelineActivated = false;
+      //     collectingInput = false;
+      //
+      //     playRNN(event);
+      this.inputTime = 0;
       this.activeTimeline = false;
       this.timelinePos = 0;
+      playRNN(event);
     }
   }
 
+  addInputPitch(pitch) {
+    inputPitches.push(pitch);
+    //first input from keyPressed appears undefined (null)
+    (this.inputTime == null) ? startInputs.push(0) : startInputs.push(this.inputTime);
+  }
+
+  addInputTime() {
+    endInputs.push(this.inputTime);
+  }
 }
 
 class Drumkit {
@@ -50,6 +65,7 @@ class Drumkit {
     this.scl = scl;
 		this.col = windowWidth / this.scl;
 		this.row = this.h / this.scl;
+
     this.hihatRad = 100;
   }
 
