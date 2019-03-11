@@ -38,18 +38,37 @@ function createSampleSequences() {
 
 }
 
+function playTempSequence(pitch) {
+  TEMPORARY_INPUT = {
+  ticksPerQuarter: 220,
+  totalTime: 1,
+  timeSignatures: [{time: 0, numerator: 4, denominator: 4}],
+  tempos: [{time: 0, qpm: 120}],
+  notes: [
+    {startTime: 0, endTime: 1, pitch: pitch, velocity: 100, isDrum: true}, {
+    instrument: 10,
+    startTime: 0,
+    endTime: 1,
+    pitch: pitch,
+    velocity: 100,
+    isDrum: true}
+  ]
+  }
+  rnnPlayer.start(TEMPORARY_INPUT);
+}
+
 function createSamplePlayers() {
   // A plain NoteSequence player
   player = new mm.Player();
 
   // A Visualizer
-  config = {
-  noteHeight: 12,
-  pixelsPerTimeStep: 30,  // like a note width
-  noteSpacing: 50,
-  noteRGB: '8, 41, 64',
-  activeNoteRGB: '250, 190, 0',
-}
+//   config = {
+//   noteHeight: 12,
+//   pixelsPerTimeStep: 30,  // like a note width
+//   noteSpacing: 50,
+//   noteRGB: '8, 41, 64',
+//   activeNoteRGB: '250, 190, 0',
+// }
 
   // viz = new mm.Visualizer(DRUMS_INPUT, document.getElementById('canvas'), config);
 
@@ -75,15 +94,15 @@ function createGeneratedSample(ns) {
 //   activeNoteRGB: '240, 84, 119',
 // }
 
-  viz2 = new mm.Visualizer(ns, document.getElementById('canvas2'), config);
+  // viz2 = new mm.Visualizer(ns, document.getElementById('canvas2'), config);
 
   // This player calls back two functions:
   // - run, after a note is played. This is where we update the visualizer.
   // - stop, when it is done playing the note sequence.
-  vizPlayer2 = new mm.Player(false, {
-    run: (note) => viz.redraw(note),
-    stop: () => {}
-  });
+  // vizPlayer2 = new mm.Player(false, {
+  //   run: (note) => viz.redraw(note),
+  //   stop: () => {}
+  // });
   rnnPlayer.start(ns);
 }
 
@@ -103,7 +122,7 @@ function setupDrumsRNN() {
   console.log("done");
 }
 
-async function playRNN(event) {
+async function playRNN() {
   console.log(DRUMS_INPUT);
   // if (rnnPlayer.isPlaying()) {
   //   rnnPlayer.stop();
@@ -118,7 +137,7 @@ async function playRNN(event) {
   const gns = await drums_rnn.continueSequence(qns, rnn_steps, rnn_temperature);
 
   console.log(gns);
-  // createGeneratedSample(gns);
+  createGeneratedSample(gns);
   // .then((sample) => rnnPlayer.start(sample))
   // .then(console.log(sample));
 

@@ -44,6 +44,7 @@ class DrumOff extends Scene {
       this.activeTimeline = false;
       this.timelinePos = 0;
       playRNN(event);
+      // rnnPlayer.start(ns);
     }
   }
 
@@ -51,6 +52,7 @@ class DrumOff extends Scene {
     inputPitches.push(pitch);
     //first input from keyPressed appears undefined (null)
     (this.inputTime == null) ? startInputs.push(0) : startInputs.push(this.inputTime);
+    playTempSequence(pitch);
   }
 
   addInputTime() {
@@ -77,6 +79,7 @@ class Drumkit {
 
   hihat() {
     console.log("hihat!");
+    // playTempSequence();
   }
 
 }
