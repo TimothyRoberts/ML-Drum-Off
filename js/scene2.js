@@ -17,7 +17,7 @@ class Scene2 extends Scene {
     this.startInputs = [];
     this.endInputs = [];
     this.pitchInputs = [];
-    this.drumkit = new Drumkit(w, h, col, row);
+    this.drumkit = new Drumkit(w, h, col, row, true);
 
 	}
 
@@ -44,7 +44,19 @@ class Scene2 extends Scene {
 }
 
 class Drumkit extends Scene {
-	constructor(w, h, col, row) {
-		super(w, h, col, row);
+	constructor(w, h, col, row, isActive) {
+		super(w, h, col, row, isActive);
+    this.hihatRad = 100;
   }
+
+  show() {
+    noFill();
+    stroke(255);
+    ellipse(col*3, row*4, this.hihatRad, this.hihatRad);
+  }
+
+  hihat() {
+    console.log("hihat!");
+  }
+
 }

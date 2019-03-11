@@ -88,6 +88,7 @@ function draw() {
     scene1.display();
   } else if (scene2.isActive) {
     scene2.display();
+    scene2.drumkit.show();
   }
 
 
@@ -99,7 +100,15 @@ function draw() {
 }
 
 function keyPressed() {
-  scene2.isActive ? scene2.activeTimeline = true : console.log("");
+  if (scene2.isActive == true && scene2.activeTimeline == false) {
+    scene2.activeTimeline = true;
+  }
+
+  if (scene2.activeTimeline) {
+    ((key == 'F') || (key == 'f')) ? scene2.drumkit.hihat()
+    : console.log("no");
+  }
+
 }
 
 // function activateTimeline() {
