@@ -42,9 +42,10 @@ function setup() {
 	canvas.parent('canvasContainer');
 	textAlign(CENTER, CENTER);
 	imageMode(CENTER);
+  rectMode(CENTER);
 
 	/* (width, height, column, row, isActive, header, subheader, ringoImg) */
-	activeScene = new DrumOff(w, h, ringoImg);
+	activeScene = new Home(w, h, ringoImg);
   // activeScene.setup();
 	// scene2 = new Scene2(w, h, col, row, true, "ROUND 1");
 
@@ -55,57 +56,68 @@ function setup() {
 	// homeBtn.mousePressed(activateScene1);
 }
 
-function activateScene2() {
-	scene1.isActive = false;
-	chooseBtn.hide();
-}
-
-function activateScene1() {
-	scene2.isActive = false;
-	scene1.isActive = true;
-	chooseBtn.show();
-}
-
-
 function draw() {
-  background(40);
+  // background(35, 30, 30);
+  background(240, 85, 85);
   activeScene.run();
 }
 
 
 function keyPressed() {
   if(activeScene.id == "drumOff") {
-    activeScene.activeTimeline = true;
     if ((key == 'F') || (key == 'f')) {
+      activeScene.activeTimeline = true;
       activeScene.addInputPitch(42);
       activeScene.drumkit.hihat();
-    } //pitch
+    } else if ((key == 'J') || (key == 'j')) {
+      activeScene.activeTimeline = true;
+      activeScene.addInputPitch(32);
+      activeScene.drumkit.snare();
+    } else if ((key == 'K') || (key == 'k')) {
+      activeScene.activeTimeline = true;
+      activeScene.addInputPitch(36);
+      activeScene.drumkit.kick();
     // : console.log("no");
+    } else if ((key == 'T') || (key == 't')) {
+      activeScene.activeTimeline = true;
+      activeScene.addInputPitch(50);
+      activeScene.drumkit.tom1();
+    } else if ((key == 'Y') || (key == 'y')) {
+        activeScene.activeTimeline = true;
+        activeScene.addInputPitch(48);
+        activeScene.drumkit.tom2();
+    } else if ((key == 'L') || (key == 'l')) {
+        activeScene.activeTimeline = true;
+        activeScene.addInputPitch(45);
+        activeScene.drumkit.bass();
+    }
   }
 }
 
 function keyReleased() {
   if(activeScene.id == "drumOff") {
     if (activeScene.activeTimeline) {
-      ((key == 'F') || (key == 'f')) ? activeScene.addInputTime() //pitch
-      : console.log("no");
+      if ((key == 'F') || (key == 'f')) {activeScene.addInputTime()}
+      else if ((key == 'J') || (key == 'j')) {activeScene.addInputTime()}
+      else if ((key == 'K') || (key == 'k')) {activeScene.addInputTime()}
+      else if ((key == 'T') || (key == 't')) {activeScene.addInputTime()}
+      else if ((key == 'Y') || (key == 'y')) {activeScene.addInputTime()}
+
     }
-
   }
-
 }
 
 //Resizes canvas when window is resized
 function windowResized() {
 
 	(windowHeight < 600) ? h = 600 : h = windowHeight;
-
 	resizeCanvas(windowWidth, h);
 
-	col = windowWidth/scl;
-	row = h/scl;
+  activeScene = new DrumOff(w, h, ringoImg);
+	// col = windowWidth/scl;
+	// row = h/scl;
 
-  chooseBtn.position(col*4, row*7);
+  // chooseBtn.position(col*4, row*7);
 
 
 

@@ -27,7 +27,7 @@ function createSampleSequences() {
   for(let i = 0; i < startInputs.length; i++) {
     DRUMS_INPUT.notes.push({
       startTime: startInputs[i], endTime: endInputs[i], pitch: inputPitches[i], velocity: 100, isDrum: true}, {
-      instrument: 10,
+      instrument: 1,
       startTime: startInputs[i],
       endTime: endInputs[i],
       pitch: inputPitches[i],
@@ -41,14 +41,14 @@ function createSampleSequences() {
 function playTempSequence(pitch, inputTime) {
   TEMPORARY_INPUT = {
   ticksPerQuarter: 220,
-  totalTime: 0.01,
+  totalTime: 0.005,
   timeSignatures: [{time: 0, numerator: 4, denominator: 4}],
   tempos: [{time: 0, qpm: 120}],
   notes: [
-    {startTime: 0, endTime: 0.01, pitch: pitch, velocity: 100, isDrum: true}, {
-    instrument: 10,
+    {startTime: 0, endTime: 0.005, pitch: pitch, velocity: 100, isDrum: true}, {
+    instrument: 1,
     startTime: 0,
-    endTime: 0.01,
+    endTime: 0.005,
     pitch: pitch,
     velocity: 100,
     isDrum: true}

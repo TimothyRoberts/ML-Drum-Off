@@ -22,13 +22,14 @@ class Home extends Scene {
 
 	run() {
 		// super.display();
-		fill(255);
+		fill(40,50,80);
 		textSize(this.headerSize);
 		text(this.header, this.col*4, this.row);
 		textSize(this.subheaderSize);
 		text(this.subheader, this.col*4, this.row*2);
 		image(ringoImg, this.col*4, this.row*3.5, this.iconSize, this.iconSize);
 		textSize(12);
+		fill(255);
 		text(`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod\n
 					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n
 					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n
