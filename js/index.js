@@ -4,7 +4,7 @@ let activeScene;
 let w, h;
 let h1font, h2font, pfont;
 let ringoIcon;
-let homeBtn, chooseBtn;
+let homeBtn, chooseBtn, downloadBtn;
 let DRUMS_INPUT;
 let TEMPORARY_INPUT;
 
@@ -39,7 +39,7 @@ function preload() {
 
 function setup() {
 
-	(windowHeight < 600) ? h = 600 : h = windowHeight;
+	(windowHeight < 650) ? h = 650 : h = windowHeight;
 	w = windowWidth;
 	canvas = createCanvas(windowWidth, h);
 
@@ -116,12 +116,16 @@ function mousePressed() {
   if(activeScene.id == "home") {
     activeScene.switchScene(mouseX, mouseY);
   }
+
+  if(activeScene.id == "drumOff") {
+    activeScene.displayInfo(mouseX, mouseY);
+  }
 }
 
 //Resizes canvas when window is resized
 function windowResized() {
 
-	(windowHeight < 600) ? h = 600 : h = windowHeight;
+	(windowHeight < 650) ? h = 650 : h = windowHeight;
 	resizeCanvas(windowWidth, h);
 
   if(activeScene.id == "home") {

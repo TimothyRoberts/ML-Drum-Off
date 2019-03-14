@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/sketch.css">
       <!-- Inputs a series of notes and chord progressions, outputs a generated melody -->
     <script src="https://cdn.jsdelivr.net/npm/@magenta/music@1.4.2"></script>
+    <script src='https://cdn.jsdelivr.net/npm/file-saver'></script>
     <!-- Tonal is a music theory library, used to convert note pitch values to midi values -->
     <script src="libraries/tonal.min.js"></script>
     <!-- Tone is a WebAudio library for creating music in the browser -->
@@ -25,8 +26,8 @@
 
   <body>
     <div id="canvasContainer"></div>
-    <div id="homeBtn"></div>
-    <div id="chooseBtn"></div>
+    <canvas id="canvas"></canvas>
+    <div id="downloadBtn"></div>
   </body>
 
   <script src="js/scene.js"></script>

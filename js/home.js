@@ -84,7 +84,7 @@ class Home extends Scene {
 	}
 
 	switchScene(x, y) {
-		if((x > this.col*4 - 125 && x < this.col*4 + 125) && (y > this.row*7 - 30 && x < this.row*7 + 30)) {
+		if((x > this.col*4 - 125 && x < this.col*4 + 125) && (y > this.row*7 - 30 && y < this.row*7 + 30)) {
 			console.log("hit!");
 			activeScene = new DrumOff(w, h, ringoIcon);
 		}

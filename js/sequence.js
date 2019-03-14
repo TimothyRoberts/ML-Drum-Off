@@ -3,10 +3,12 @@
 const checkpointURL = "model";
 console.log(checkpointURL);
 let drums_rnn = mm.MusicRNN(checkpointURL);
+// let vis2;
 console.log(drums_rnn);
 
 let player, player2, tempPlayer, viz, vis2, vizPLayer, vizPLayer2;
 let music_rnn, rnnPlayer;
+let generatedSequence;
 // createSampleSequences();
 // createSamplePlayers();
 setupDrumsRNN();
@@ -71,6 +73,12 @@ function createGeneratedSample(ns) {
   rnnPlayer.start(ns);
 }
 
+function download() {
+
+    saveAs(new File([mm.sequenceProtoToMidi(generatedSequence)], 'gns.mid'));
+
+}
+
 
 var rnn_steps = 25;
 var rnn_temperature = 1.5;
@@ -92,8 +100,10 @@ async function playRNN() {
   // The model expects a quantized sequence
   const qns = mm.sequences.quantizeNoteSequence(DRUMS_INPUT, 4);
   const gns = await drums_rnn.continueSequence(qns, rnn_steps, rnn_temperature);
+  generatedSequence = gns;
 
   console.log(gns);
   createGeneratedSample(gns);
+  viz2 = new mm.Visualizer(gns, document.getElementById('canvas'));
 
 }

@@ -8,21 +8,42 @@ class DrumOff extends Scene {
     this.incrementScl = 250;
     this.increment = windowWidth/this.incrementScl;
     this.inputTime;
+		this.showInfo = false;
+		this.infoDist;
 
     this.drumkit = new Drumkit(this.w, this.h, this.col, this.row, this.scl);
 
+
+		downloadBtn = createButton('download Result');
+		downloadBtn.parent('downloadBtn')
+		downloadBtn.mousePressed(download);
 	}
 
 	run() {
     stroke(255);
     line(this.col, this.row*6, this.col, this.row*6.5);
     line(this.col*7, this.row*6, this.col*7, this.row*6.5);
+		push();
+		noStroke();
+		fill(12, 45, 75);
+		ellipse(this.col*7, this.row, 50, 50);
+		fill(255);
+		textSize(20);
+		text("i", this.col*7, this.row);
+		pop();
 
     this.drumkit.show();
 
     if (this.activeTimeline) {
       this.runTimeline();
     }
+
+		if (this.showInfo) {
+			fill(12, 45, 75)
+			rect(this.col*4, this.row*4, this.col*8 - 50, this.row*8 - 50);
+			fill(255);
+			text("Information on the project will be shown here", this.col*4, this.row*4);
+		}
 
 	}
 
@@ -53,6 +74,16 @@ class DrumOff extends Scene {
   addInputTime() {
     endInputs.push(this.inputTime);
   }
+
+	/* Detects if mouse click is within Information icon ellipse button */
+	displayInfo(x, y) {
+		this.infoDist = dist(x, y, this.col*7, this.row);
+		if(this.infoDist < 25) {
+			this.showInfo = true;
+		}
+		console.log(this.infoDist);
+	}
+
 }
 
 class Drumkit {
@@ -86,16 +117,22 @@ class Drumkit {
     stroke(255);
     //hihat
     ellipse(this.col*1.5, this.row*3.5, this.hihatRad, this.hihatRad);
+    text("F", this.col*1.5, this.row*3.5);
     //snare
     ellipse(this.col*2.5, this.row*4.5, this.snareRad, this.snareRad);
+    text("J", this.col*2.5, this.row*4.5);
     //kick
     rect(this.col*4, this.row*5.5, this.kickW, 175);
+    text("K", this.col*4, this.row*5.5);
     //tom1
     ellipse(this.col*3.5, this.row*3, this.hihatRad, this.hihatRad);
+    text("T", this.col*3.5, this.row*3);
     //tom1
     ellipse(this.col*4.5, this.row*3, this.hihatRad, this.hihatRad);
+    text("Y", this.col*4.5, this.row*3);
     //bass
     ellipse(this.col*6, this.row*4.5, this.bassRad, this.bassRad);
+    text("L", this.col*6, this.row*4.5);
   }
 
   hihat() {
