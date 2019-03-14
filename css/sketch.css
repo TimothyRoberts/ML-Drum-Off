@@ -4,5 +4,5 @@ button {background-color: orange;}
 .canvasContainer {
   position: fixed;
   z-index: -3;
-  min-height: 800px;
+  min-height: 850px;
 }

@@ -22,18 +22,72 @@ class Home extends Scene {
 
 	run() {
 		// super.display();
-		fill(40,50,80);
+		fill(250, 215, 70);
 		textSize(this.headerSize);
+		textFont(h1font);
 		text(this.header, this.col*4, this.row);
+		image(ringoIcon, this.col*4, this.row*3, this.iconSize, this.iconSize);
 		textSize(this.subheaderSize);
-		text(this.subheader, this.col*4, this.row*2);
-		image(ringoImg, this.col*4, this.row*3.5, this.iconSize, this.iconSize);
-		textSize(12);
+		textFont(h2font);
+		// fill(12, 45, 75);
+		text("RINGO STARR\n(The Beatles)", this.col*4, this.row*4.3);
+		// text("(The Beatles)", this.col*4, this.row*4.6);
+		textSize(15);
+		textLeading(10);
 		fill(255);
-		text(`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod\n
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum`, this.col*4, this.row*5.5);
+		// fill(12, 45, 75);
+		text(`Lorem ipsum dolor sit amet, \n
+					tempor incididunt ut labore et   \n
+					quis nostrud exercitation ullamco  \n
+					consequat. Duis aute irure dolor \n
+					in voluptate velit esse cillum`, this.col*4, this.row*5.6);
+
+
+		// fill(12, 45, 75);
+		push();
+		noFill();
+		stroke(12, 45, 75);
+		ellipse(this.col*2, this.row*4, 80, 80);
+		noStroke();
+		fill(250, 215, 70);
+		beginShape();
+		vertex(this.col*1.9, this.row*4);
+		vertex(this.col*2.1, this.row*4.1);
+		vertex(this.col*2.1, this.row*4.1);
+		vertex(this.col*2.1, this.row*3.9);
+		endShape(CLOSE);
+		pop();
+
+
+		push();
+		noFill();
+		stroke(12, 45, 75);
+		ellipse(this.col*6, this.row*4, 80, 80);
+		noStroke();
+		fill(250, 215, 70);
+		beginShape();
+		vertex(this.col*6.1, this.row*4);
+		vertex(this.col*5.9, this.row*4.1);
+		vertex(this.col*5.9, this.row*4.1);
+		vertex(this.col*5.9, this.row*3.9);
+		endShape(CLOSE);
+		pop();
+
+		push();
+		fill(12, 45, 75);
+		rect(this.col*4, this.row*7, 250, 60, 25, 25, 25, 25);
+		fill(255)
+		textFont(h2font);
+		text("SELECT AS OPPONENT", this.col*4, this.row*7 - 2);
+		pop();
+
+	}
+
+	switchScene(x, y) {
+		if((x > this.col*4 - 125 && x < this.col*4 + 125) && (y > this.row*7 - 30 && x < this.row*7 + 30)) {
+			console.log("hit!");
+			activeScene = new DrumOff(w, h, ringoIcon);
+		}
 	}
 
 

@@ -2,7 +2,8 @@
 
 let activeScene;
 let w, h;
-let ringoImg;
+let h1font, h2font, pfont;
+let ringoIcon;
 let homeBtn, chooseBtn;
 let DRUMS_INPUT;
 let TEMPORARY_INPUT;
@@ -23,7 +24,10 @@ let inputPitches = [];
 ***************************************************/
 
 function preload() {
-  ringoImg = loadImage('assets/ringo_icon.png');
+  ringoIcon = loadImage('assets/images/ringoStarr.png');
+  h1font = loadFont('assets/type/Poppins-Bold.ttf');
+  h2font = loadFont('assets/type/Poppins-Regular.ttf');
+  pfont = loadFont('assets/type/OpenSans-Regular.ttf');
 }
 
 /********************** SETUP **********************
@@ -43,9 +47,10 @@ function setup() {
 	textAlign(CENTER, CENTER);
 	imageMode(CENTER);
   rectMode(CENTER);
+  ellipseMode(CENTER);
 
 	/* (width, height, column, row, isActive, header, subheader, ringoImg) */
-	activeScene = new Home(w, h, ringoImg);
+	activeScene = new Home(w, h, ringoIcon);
   // activeScene.setup();
 	// scene2 = new Scene2(w, h, col, row, true, "ROUND 1");
 
@@ -107,13 +112,22 @@ function keyReleased() {
   }
 }
 
+function mousePressed() {
+  if(activeScene.id == "home") {
+    activeScene.switchScene(mouseX, mouseY);
+  }
+}
+
 //Resizes canvas when window is resized
 function windowResized() {
 
 	(windowHeight < 600) ? h = 600 : h = windowHeight;
 	resizeCanvas(windowWidth, h);
 
-  activeScene = new DrumOff(w, h, ringoImg);
+  if(activeScene.id == "home") {
+    activeScene = new Home(w, h, ringoIcon);
+  } else {activeScene = new DrumOff(w, h, ringoIcon);}
+
 	// col = windowWidth/scl;
 	// row = h/scl;
 
