@@ -1,6 +1,6 @@
 class DrumOff extends Scene {
-	constructor(w, h, ringoImg) {
-		super(w, h);
+	constructor(w, h, a, ringoImg) {
+		super(w, h, a);
     this.id = "drumOff";
     this.header = "Round 1";
     this.activeTimeline = false;
@@ -20,7 +20,7 @@ class DrumOff extends Scene {
 	}
 
 	run() {
-    stroke(255);
+    stroke(255, this.alpha);
     line(this.col, this.row*6, this.col, this.row*6.5);
     line(this.col*7, this.row*6, this.col*7, this.row*6.5);
 		push();
@@ -84,6 +84,19 @@ class DrumOff extends Scene {
 		console.log(this.infoDist);
 	}
 
+  transition() {
+    console.log(this.alpha);
+      this.fadeIn ? this.alpha += 10
+      : this.alpha -= 15;
+      if (this.alpha < 0) {
+        // activeScene.switchScene();
+        this.fadeIn = true;
+      };
+      if (this.alpha > 255) {
+        sceneTransition = false;
+      }
+  }
+
 }
 
 class Drumkit {
@@ -114,16 +127,16 @@ class Drumkit {
 
   show() {
     noFill();
-    stroke(255);
+    stroke(255, this.alpha);
     //hihat
     ellipse(this.col*1.5, this.row*3.5, this.hihatRad, this.hihatRad);
     text("F", this.col*1.5, this.row*3.5);
     //snare
     ellipse(this.col*2.5, this.row*4.5, this.snareRad, this.snareRad);
-    text("J", this.col*2.5, this.row*4.5);
+    text("G", this.col*2.5, this.row*4.5);
     //kick
     rect(this.col*4, this.row*5.5, this.kickW, 175);
-    text("K", this.col*4, this.row*5.5);
+    text("H", this.col*4, this.row*5.5);
     //tom1
     ellipse(this.col*3.5, this.row*3, this.hihatRad, this.hihatRad);
     text("T", this.col*3.5, this.row*3);
@@ -132,7 +145,7 @@ class Drumkit {
     text("Y", this.col*4.5, this.row*3);
     //bass
     ellipse(this.col*6, this.row*4.5, this.bassRad, this.bassRad);
-    text("L", this.col*6, this.row*4.5);
+    text("J", this.col*6, this.row*4.5);
   }
 
   hihat() {

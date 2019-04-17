@@ -2,14 +2,13 @@
  Home extends scene and displays the home screen
 ***************************************************/
 
-class Home extends Scene {
+class SelectDrummer extends Scene {
 	constructor(w, h, a, logo) {
 		super(w, h, a);
-    this.id = "home";
-		this.header = "ML DRUM-OFF";
+    this.id = "selectDrummer";
+		this.header = "SELECT DRUMMER";
 		this.subheader = "SELECT OPPONENT";
 		this.logo = logo;
-    this.fadeIn = false;
 
 	}
 
@@ -22,28 +21,30 @@ class Home extends Scene {
   }
 
 	run() {
-		// image opacity
-		tint(255, this.alpha);
-		image(this.logo, this.col*4, this.row*4, this.logoW, this.logoH);
+		// super.display();
+		// image(this.logo, this.col*1, this.row*1, this.logoW, this.logoH);
 
 		push();
-		textSize(this.h3);
+		textSize(this.h1);
 		textLeading(12);
-		textAlign(LEFT);
-		fill(250, 215, 70);
-		fill(12, 45, 75);
-		fill(253,181,181, this.alpha);
-		text(`CLICK ANYWHERE TO BEGIN`, this.col*4.3, this.row*5);
+		textAlign(CENTER);
+		fill(250, 215, 70, this.alpha);
+		// fill(12, 45, 75);
+		// fill(255, 150);
+		textFont(h1font);
+		text(`SELECT DRUMMER`, this.col*4, this.row*1);
+
 		pop();
 
 	}
+
 
   transition() {
     console.log(this.alpha);
       this.fadeIn ? this.alpha += 10
       : this.alpha -= 15;
       if (this.alpha < 0) {
-        activeScene.switchScene();
+        // activeScene.switchScene();
         this.fadeIn = true;
       };
       if (this.alpha > 255) {
@@ -53,8 +54,10 @@ class Home extends Scene {
 
 	switchScene(x, y) {
 		// if((x > this.col*4 - 125 && x < this.col*4 + 125) && (y > this.row*7 - 30 && y < this.row*7 + 30)) {
-			activeScene = new SelectDrummer(w, h, 0, logo);
-
+			console.log("Change Scene");
+			activeScene = new DrumOff(w, h, logo);
+		// }
 	}
+
 
 }

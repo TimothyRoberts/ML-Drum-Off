@@ -1,10 +1,12 @@
 ////////////////// INDEX SCRIPT //////////////////
 
 let activeScene;
+let sceneTransition = false;
 let w, h;
 let h1font, h2font, pfont;
-let ringoIcon;
+let logo;
 let homeBtn, chooseBtn, downloadBtn;
+let bgColor;
 let DRUMS_INPUT;
 let TEMPORARY_INPUT;
 
@@ -24,7 +26,7 @@ let inputPitches = [];
 ***************************************************/
 
 function preload() {
-  ringoIcon = loadImage('assets/images/ringoStarr.png');
+  logo = loadImage('assets/images/logo.png');
   h1font = loadFont('assets/type/Poppins-Bold.ttf');
   h2font = loadFont('assets/type/Poppins-Regular.ttf');
   pfont = loadFont('assets/type/OpenSans-Regular.ttf');
@@ -48,23 +50,16 @@ function setup() {
 	imageMode(CENTER);
   rectMode(CENTER);
   ellipseMode(CENTER);
+  bgColor = color(250, 75, 75);
 
-	/* (width, height, column, row, isActive, header, subheader, ringoImg) */
-	activeScene = new Home(w, h, ringoIcon);
-  // activeScene.setup();
-	// scene2 = new Scene2(w, h, col, row, true, "ROUND 1");
-
-
-	// homeBtn = createButton('Home');
-	// homeBtn.parent('homeBtn')
-  // homeBtn.position(col, row);
-	// homeBtn.mousePressed(activateScene1);
+  // width, height, alpha, logoImage
+	activeScene = new Home(w, h, 255, logo);
 }
 
 function draw() {
-  // background(35, 30, 30);
-  background(240, 85, 85);
+  background(bgColor);
   activeScene.run();
+  if (sceneTransition) {activeScene.transition()};
 }
 
 
@@ -74,11 +69,11 @@ function keyPressed() {
       activeScene.activeTimeline = true;
       activeScene.addInputPitch(42);
       activeScene.drumkit.hihat();
-    } else if ((key == 'J') || (key == 'j')) {
+    } else if ((key == 'G') || (key == 'g')) {
       activeScene.activeTimeline = true;
       activeScene.addInputPitch(32);
       activeScene.drumkit.snare();
-    } else if ((key == 'K') || (key == 'k')) {
+    } else if ((key == 'H') || (key == 'h')) {
       activeScene.activeTimeline = true;
       activeScene.addInputPitch(36);
       activeScene.drumkit.kick();
@@ -91,7 +86,7 @@ function keyPressed() {
         activeScene.activeTimeline = true;
         activeScene.addInputPitch(48);
         activeScene.drumkit.tom2();
-    } else if ((key == 'L') || (key == 'l')) {
+    } else if ((key == 'J') || (key == 'j')) {
         activeScene.activeTimeline = true;
         activeScene.addInputPitch(45);
         activeScene.drumkit.bass();
@@ -103,10 +98,11 @@ function keyReleased() {
   if(activeScene.id == "drumOff") {
     if (activeScene.activeTimeline) {
       if ((key == 'F') || (key == 'f')) {activeScene.addInputTime()}
-      else if ((key == 'J') || (key == 'j')) {activeScene.addInputTime()}
-      else if ((key == 'K') || (key == 'k')) {activeScene.addInputTime()}
+      else if ((key == 'G') || (key == 'g')) {activeScene.addInputTime()}
+      else if ((key == 'H') || (key == 'h')) {activeScene.addInputTime()}
       else if ((key == 'T') || (key == 't')) {activeScene.addInputTime()}
       else if ((key == 'Y') || (key == 'y')) {activeScene.addInputTime()}
+      else if ((key == 'J') || (key == 'j')) {activeScene.addInputTime()}
 
     }
   }
@@ -114,7 +110,9 @@ function keyReleased() {
 
 function mousePressed() {
   if(activeScene.id == "home") {
-    activeScene.switchScene(mouseX, mouseY);
+    // activeScene.switchScene(mouseX, mouseY);
+    console.log("transition");
+    sceneTransition = true;
   }
 
   if(activeScene.id == "drumOff") {
@@ -124,34 +122,10 @@ function mousePressed() {
 
 //Resizes canvas when window is resized
 function windowResized() {
-
 	(windowHeight < 650) ? h = 650 : h = windowHeight;
 	resizeCanvas(windowWidth, h);
 
   if(activeScene.id == "home") {
-    activeScene = new Home(w, h, ringoIcon);
-  } else {activeScene = new DrumOff(w, h, ringoIcon);}
-
-	// col = windowWidth/scl;
-	// row = h/scl;
-
-  // chooseBtn.position(col*4, row*7);
-
-
-
-		/* (width, height, column, row, isActive, header, subheader, ringoImg) */
-		// scene1 = new Scene1(w, h, col, row, true, "ML DRUM-OFF", "SELECT OPPONENT", ringoImg);
-
- //  timeline = { beginX: windowWidth/scl,
- //               endX: windowWidth/scl*7,
- //               beginY: windowHeight/scl*6,
- //               endY: windowHeight/scl*6.5,
- //               increment: windowWidth/incrementScl
- //             };
- //
- //
- // inputTime = 0;
- // timeline.pos = 0;
- // timelineActivated = false;
- // collectingInput = false;
+    activeScene = new Home(w, h, logo);
+  } else {activeScene = new DrumOff(w, h, logo);}
 }
