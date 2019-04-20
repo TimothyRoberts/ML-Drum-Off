@@ -39,21 +39,20 @@ class Home extends Scene {
 	}
 
   transition() {
-    console.log(this.alpha);
-      this.fadeIn ? this.alpha += 10
-      : this.alpha -= 15;
-      if (this.alpha < 0) {
-        activeScene.switchScene();
-        this.fadeIn = true;
-      };
-      if (this.alpha > 255) {
-        sceneTransition = false;
-      }
+    this.fadeIn ? this.alpha += 10
+    : this.alpha -= 15;
+    if (this.alpha < 0) {
+      activeScene.switchScene();
+      this.fadeIn = true;
+    };
+    if (this.alpha > 255) {
+      sceneTransition = false;
+    }
   }
 
 	switchScene(x, y) {
 		// if((x > this.col*4 - 125 && x < this.col*4 + 125) && (y > this.row*7 - 30 && y < this.row*7 + 30)) {
-			activeScene = new SelectDrummer(w, h, 0, logo);
+			activeScene = new SelectDrummer(w, h, 0, this.ringoIcon);
 
 	}
 

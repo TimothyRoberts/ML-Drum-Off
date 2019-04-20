@@ -2,9 +2,10 @@
 
 let activeScene;
 let sceneTransition = false;
+let mouseCoordinates = [];
 let w, h;
 let h1font, h2font, pfont;
-let logo;
+let logo, ringoIcon;
 let homeBtn, chooseBtn, downloadBtn;
 let bgColor;
 let DRUMS_INPUT;
@@ -27,6 +28,7 @@ let inputPitches = [];
 
 function preload() {
   logo = loadImage('assets/images/logo.png');
+  ringoIcon = loadImage('assets/images/ringo.png');
   h1font = loadFont('assets/type/Poppins-Bold.ttf');
   h2font = loadFont('assets/type/Poppins-Regular.ttf');
   pfont = loadFont('assets/type/OpenSans-Regular.ttf');
@@ -53,7 +55,7 @@ function setup() {
   bgColor = color(250, 75, 75);
 
   // width, height, alpha, logoImage
-	activeScene = new Home(w, h, 255, logo);
+	activeScene = new Home(w, h, 255, logo, ringoIcon);
 }
 
 function draw() {
@@ -115,17 +117,37 @@ function mousePressed() {
     sceneTransition = true;
   }
 
+  if(activeScene.id == "selectDrummer") {
+    // sceneTransition = true;
+    if((mouseX > activeScene.c2pos - 125 && mouseX < activeScene.c2pos + 125) && (mouseY > activeScene.row*6.4 - 30 && mouseY < activeScene.row*6.4 + 30)) {
+      console.log("Ringo Starr Selected");
+      sceneTransition = true;
+    }
+  }
+
   if(activeScene.id == "drumOff") {
     activeScene.displayInfo(mouseX, mouseY);
   }
+}
+
+function storeMouseCoordinates(x, y) {
+  mouseCoordinates = [];
+  mouseCoordinates.push(x);
+  mouseCoordinates.push(y);
 }
 
 //Resizes canvas when window is resized
 function windowResized() {
 	(windowHeight < 650) ? h = 650 : h = windowHeight;
 	resizeCanvas(windowWidth, h);
+  console.log(h);
+
+  // (activeScene.id === "home") ? activeScene = new Home(w, h, logo)
+  // : (activeScene.id === "selectDrummer") ? activeScene = new SelectDrummer(w, h, logo);
 
   if(activeScene.id == "home") {
-    activeScene = new Home(w, h, logo);
-  } else {activeScene = new DrumOff(w, h, logo);}
+    activeScene = new Home(w, h, activeScene.alpha, logo);
+  }
+  else if (activeScene.id == "selectDrummer") {activeScene = new SelectDrummer(w, h, ringoIcon);}
+  else if (activeScene.id == "drumOff") {activeScene = new DrumOff(w, h, logo);}
 }

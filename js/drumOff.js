@@ -9,9 +9,10 @@ class DrumOff extends Scene {
     this.increment = windowWidth/this.incrementScl;
     this.inputTime;
 		this.showInfo = false;
+		this.fadeIn = false;
 		this.infoDist;
-
-    this.drumkit = new Drumkit(this.w, this.h, this.col, this.row, this.scl);
+		// x, y, wScl, maxW, minW, key
+    this.snare = new Drum(w, h, this.alpha, this.col*2.5, this.row*4.5, 8, 150, 65, "G");
 
 
 		downloadBtn = createButton('download Result');
@@ -32,7 +33,7 @@ class DrumOff extends Scene {
 		text("i", this.col*7, this.row);
 		pop();
 
-    this.drumkit.show();
+    this.snare.show();
 
     if (this.activeTimeline) {
       this.runTimeline();
@@ -85,7 +86,7 @@ class DrumOff extends Scene {
 	}
 
   transition() {
-    console.log(this.alpha);
+    // console.log(this.alpha);
       this.fadeIn ? this.alpha += 10
       : this.alpha -= 15;
       if (this.alpha < 0) {
@@ -99,53 +100,35 @@ class DrumOff extends Scene {
 
 }
 
-class Drumkit {
-	constructor(w, h, col, row, scl) {
-		this.w = w;
-		this.h = h;
-    this.scl = scl;
-		this.col = windowWidth / this.scl;
-		this.row = this.h / this.scl;
+class Drum extends Scene {
+	constructor(w, h, a, posX, posY, wScl, maxW, minW, key) {
+		super(w, h, a);
+		this.posX = posX;
+		this.posY = posY;
+		this.wScl = wScl;
+		this.maxW = maxW;
+		this.minW = minW;
+		this.key = key;
 
-    (windowWidth/10 > 120) ? this.hihatRad = 120
-		: (windowWidth/10 < 50) ? this.hihatRad = 50
-		: this.hihatRad = windowWidth/10;
+    (windowWidth/this.wScl > this.maxW) ? this.drumRad = this.maxW
+		: (windowWidth/this.wScl < this.minW) ? this.drumRad = this.minW
+		: this.drumRad = windowWidth/this.wScl;
 
-    (windowWidth/8 > 150) ? this.snareRad = 150
-		: (windowWidth/8 < 65) ? this.snareRad = 65
-		: this.snareRad = windowWidth/8;
-    // this.snareRad = 125;
-
-    (windowWidth/4 > 300) ? this.kickW = 300
-		: (windowWidth/4 < 125) ? this.kickW = 125
-		: this.kickW = windowWidth/4;
-
-    (windowWidth/6 > 200) ? this.bassRad = 200
-		: (windowWidth/6 < 125) ? this.bassRad = 125
-		: this.bassRad = windowWidth/6;
   }
 
   show() {
+    fill(250, 215, 70, activeScene.alpha);
+		noStroke();
+    ellipse(this.posX, this.posY, this.drumRad, this.drumRad);
+		fill(bgColor);
+		textSize(64);
+    text(this.key, this.posX, this.posY-10);
+
+
     noFill();
-    stroke(255, this.alpha);
-    //hihat
-    ellipse(this.col*1.5, this.row*3.5, this.hihatRad, this.hihatRad);
-    text("F", this.col*1.5, this.row*3.5);
-    //snare
-    ellipse(this.col*2.5, this.row*4.5, this.snareRad, this.snareRad);
-    text("G", this.col*2.5, this.row*4.5);
-    //kick
-    rect(this.col*4, this.row*5.5, this.kickW, 175);
-    text("H", this.col*4, this.row*5.5);
-    //tom1
-    ellipse(this.col*3.5, this.row*3, this.hihatRad, this.hihatRad);
-    text("T", this.col*3.5, this.row*3);
-    //tom1
-    ellipse(this.col*4.5, this.row*3, this.hihatRad, this.hihatRad);
-    text("Y", this.col*4.5, this.row*3);
-    //bass
-    ellipse(this.col*6, this.row*4.5, this.bassRad, this.bassRad);
-    text("J", this.col*6, this.row*4.5);
+		stroke(12, 45, 75, activeScene.alpha);
+		strokeWeight(2);
+    ellipse(this.posX, this.posY, this.drumRad+20, this.drumRad+20);
   }
 
   hihat() {

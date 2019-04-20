@@ -31,6 +31,7 @@ class Scene {
 		: this.logoH = map(this.logoW, 275, 850, 88, 272);
 
 		this.h3 = map(this.logoW, 275, 850, 14, 26);
+		this.h2 = map(this.logoW, 275, 850, 18, 28);
     this.h1 = map(this.logoW, 275, 850, 26, 52);
 	}
 
