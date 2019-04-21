@@ -71,6 +71,12 @@ function createGeneratedSample(ns) {
   player2 = new mm.Player();
 
   rnnPlayer.start(ns);
+  // rnnPlayer.scheduledStop(10);
+  if(rnnPlayer.getPlayState() == "started") {activeScene.allowInput = false; console.log("noInput");}
+  else if (rnnPlayer.getPlayState() == "stopped") {
+  activeScene.allowInput = true; console.log("yay input");}
+  // setTimeout(function(){ rnnPlayer.stop() }, 1000);
+  console.log(rnnPlayer.getPlayState());
 }
 
 function download() {

@@ -67,31 +67,40 @@ function draw() {
 
 function keyPressed() {
   if(activeScene.id == "drumOff") {
-    if ((key == 'F') || (key == 'f')) {
-      activeScene.activeTimeline = true;
-      activeScene.addInputPitch(42);
-      activeScene.drumkit.hihat();
-    } else if ((key == 'G') || (key == 'g')) {
-      activeScene.activeTimeline = true;
-      activeScene.addInputPitch(32);
-      activeScene.drumkit.snare();
-    } else if ((key == 'H') || (key == 'h')) {
-      activeScene.activeTimeline = true;
-      activeScene.addInputPitch(36);
-      activeScene.drumkit.kick();
-    // : console.log("no");
-    } else if ((key == 'T') || (key == 't')) {
-      activeScene.activeTimeline = true;
-      activeScene.addInputPitch(50);
-      activeScene.drumkit.tom1();
-    } else if ((key == 'Y') || (key == 'y')) {
+    if(activeScene.allowInput) {
+      if ((key == 'F') || (key == 'f')) {
         activeScene.activeTimeline = true;
-        activeScene.addInputPitch(48);
-        activeScene.drumkit.tom2();
-    } else if ((key == 'J') || (key == 'j')) {
+        activeScene.addInputPitch(42);
+        activeScene.hihat.animateDrum = true;
+        activeScene.hihat.animating = true;
+      } else if ((key == 'G') || (key == 'g')) {
         activeScene.activeTimeline = true;
-        activeScene.addInputPitch(45);
-        activeScene.drumkit.bass();
+        activeScene.addInputPitch(32);
+        activeScene.snare.animateDrum = true;
+        activeScene.snare.animating = true;
+        // activeScene.drumkit.snare();
+      } else if ((key == 'H') || (key == 'h')) {
+        activeScene.activeTimeline = true;
+        activeScene.addInputPitch(36);
+        activeScene.kick.animateDrum = true;
+        activeScene.kick.animating = true;
+      // : console.log("no");
+      } else if ((key == 'T') || (key == 't')) {
+        activeScene.activeTimeline = true;
+        activeScene.addInputPitch(50);
+        activeScene.tom1.animateDrum = true;
+        activeScene.tom1.animating = true;
+      } else if ((key == 'Y') || (key == 'y')) {
+          activeScene.activeTimeline = true;
+          activeScene.addInputPitch(48);
+          activeScene.tom2.animateDrum = true;
+          activeScene.tom2.animating = true;
+      } else if ((key == 'J') || (key == 'j')) {
+          activeScene.activeTimeline = true;
+          activeScene.addInputPitch(45);
+          activeScene.bass.animateDrum = true;
+          activeScene.bass.animating = true;
+      }
     }
   }
 }
