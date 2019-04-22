@@ -13,30 +13,20 @@ class DrumOff extends Scene {
 		this.iconAlpha = 0;
 		this.infoDist;
 		this.allowInput = true;
-		this.yellowBg = true;
-		this.lerpVal = 0;
 		// x, y, wScl, maxW, minW, key
-		this.snare = new Drum(w, h, this.alpha, this.col*2.5, this.row*4.5, 8, 150, 65, "G");
-    this.hihat = new Drum(w, h, this.alpha, this.col*1.5, this.row*3.7, 10, 120, 50, "F");
-    this.tom1 = new Drum(w, h, this.alpha, this.col*3.5, this.row*3.4, 12, 100, 40, "T");
-    this.tom2 = new Drum(w, h, this.alpha, this.col*4.5, this.row*3.4, 11, 110, 45, "Y");
-    this.bass = new Drum(w, h, this.alpha, this.col*5.8, this.row*4.3, 6, 200, 100, "J");
-    this.kick = new Drum(w, h, this.alpha, this.col*4, this.row*5.5, 4, 240, 130, "H");
+		this.snare = new Drum(w, h, this.alpha, this.col*2.5, this.row*3.8, 8, 150, 65, "G");
+    this.hihat = new Drum(w, h, this.alpha, this.col*1.5, this.row*3, 10, 120, 50, "F");
+    this.tom1 = new Drum(w, h, this.alpha, this.col*3.5, this.row*2.7, 12, 100, 40, "T");
+    this.tom2 = new Drum(w, h, this.alpha, this.col*4.5, this.row*2.7, 11, 110, 45, "Y");
+    this.bass = new Drum(w, h, this.alpha, this.col*5.8, this.row*3.7, 6, 200, 80, "J");
+    this.kick = new Drum(w, h, this.alpha, this.col*4, this.row*4.8, 4, 240, 130, "H");
 
 		downloadBtn = createButton('download Result');
 		downloadBtn.parent('downloadBtn')
 		downloadBtn.mousePressed(download);
 	}
 
-
 	run() {
-		// for(var i = 0, i < 1, i+= 0.05) {
-		// console.log(this.yellowBg);
-		if (this.yellowBg) {
-			this.changeBg();
-		}
-
-		// }
     stroke(255, this.alpha);
     line(this.col, this.row*6, this.col, this.row*6.5);
     line(this.col*7, this.row*6, this.col*7, this.row*6.5);
@@ -48,7 +38,7 @@ class DrumOff extends Scene {
 		textSize(20);
 		text("i", this.col*7, this.row);
 		pop();
-		// console.log(this.allowInput);
+		console.log(this.allowInput);
 
     this.snare.show();
 		this.hihat.show();
@@ -96,15 +86,6 @@ class DrumOff extends Scene {
 			if (this.iconAlpha < 0) {this.iconAlpha = 0}
 		}
 
-	}
-
-	changeBg() {
-		if(this.lerpVal < 1) {
-			console.log(currentBg);
-			currentBg = lerpColor(bgColor, bgColor2, this.lerpVal);
-			this.lerpVal += 0.05;
-			console.log("changed");
-		} else {this.yellowBg = false;}
 	}
 
   runTimeline() {
@@ -181,12 +162,19 @@ class Drum extends Scene {
 
   show() {
 
-    fill(lerpColor(bgColor, bgColor2, 0.2), activeScene.alpha);
+		stroke(bgColor2);
+		noFill();
+		ellipse(this.col, this.row, 50, 50);
+
+
+		push();
+		// translate(0, -this.col)
+    fill(lerpColor(bgColor, bgColor2, 0.2));
 		stroke(12, 45, 75, activeScene.alpha);
 		strokeWeight(2);
     ellipse(this.posX, this.posY, this.movableDrumRad+20, this.movableDrumRad+20);
 
-		fill(bgColor, activeScene.alpha);
+		fill(250, 215, 70, activeScene.alpha);
 		noStroke();
 		if (this.isKick) {
 			rect(this.posX, this.posY, this.movableDrumRad, this.movableDrumRad);
@@ -194,9 +182,10 @@ class Drum extends Scene {
 			ellipse(this.posX, this.posY, this.movableDrumRad, this.movableDrumRad);
 		}
 
-		fill(lerpColor(bgColor2, bgColor, 0.1), activeScene.alpha);
+		fill(bgColor);
 		textSize(map(this.drumRad, this.minW, this.maxW, this.minW*0.5, this.maxW*0.7));
     text(this.key, this.posX, this.posY-15);
+		pop();
 
   }
 
