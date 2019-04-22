@@ -76,7 +76,7 @@ class SelectDrummer extends Scene {
 	switchScene(x, y) {
 		// if((x > this.col*4 - 125 && x < this.col*4 + 125) && (y > this.row*7 - 30 && y < this.row*7 + 30)) {
 			console.log("Change Scene");
-			activeScene = new DrumOff(w, h, 0, logo);
+			activeScene = new DrumOff(w, h, 0, this.ringoIcon);
 		// }
 	}
 

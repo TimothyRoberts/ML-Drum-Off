@@ -68,15 +68,17 @@ function createSamplePlayers() {
 
 function createGeneratedSample(ns) {
   // A plain NoteSequence player
+  // activeScene.allowInput = false;
+  rnnPlayer.stop();
   player2 = new mm.Player();
 
   rnnPlayer.start(ns);
   // rnnPlayer.scheduledStop(10);
-  if(rnnPlayer.getPlayState() == "started") {activeScene.allowInput = false; console.log("noInput");}
-  else if (rnnPlayer.getPlayState() == "stopped") {
-  activeScene.allowInput = true; console.log("yay input");}
+  // if(rnnPlayer.getPlayState() == "started") {activeScene.allowInput = false; console.log("noInput");}
+  // else if (rnnPlayer.getPlayState() == "stopped") {
+  // activeScene.allowInput = true; console.log("yay input");}
   // setTimeout(function(){ rnnPlayer.stop() }, 1000);
-  console.log(rnnPlayer.getPlayState());
+  // console.log(rnnPlayer.getPlayState());
 }
 
 function download() {
@@ -102,6 +104,8 @@ function setupDrumsRNN() {
 }
 
 async function playRNN() {
+  // activeScene.allowInput = false;
+  // rnnPlayer.stop();
   console.log(DRUMS_INPUT);
   // The model expects a quantized sequence
   const qns = mm.sequences.quantizeNoteSequence(DRUMS_INPUT, 4);

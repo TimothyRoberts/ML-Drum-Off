@@ -7,7 +7,7 @@ let w, h;
 let h1font, h2font, pfont;
 let logo, ringoIcon;
 let homeBtn, chooseBtn, downloadBtn;
-let bgColor;
+let bgColor, bgColor2, currentBg;
 let DRUMS_INPUT;
 let TEMPORARY_INPUT;
 
@@ -53,13 +53,15 @@ function setup() {
   rectMode(CENTER);
   ellipseMode(CENTER);
   bgColor = color(250, 75, 75);
+  bgColor2 = color(250, 215, 70);
+  currentBg = bgColor;
 
   // width, height, alpha, logoImage
 	activeScene = new Home(w, h, 255, logo, ringoIcon);
 }
 
 function draw() {
-  background(bgColor);
+  background(currentBg);
   activeScene.run();
   if (sceneTransition) {activeScene.transition()};
 }
