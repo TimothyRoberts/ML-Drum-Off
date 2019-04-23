@@ -11,34 +11,31 @@ class DrumOff extends Scene {
 		this.showInfo = false;
 		this.fadeIn = false;
 		this.iconAlpha = 0;
+		this.icon;
 		this.infoDist;
 		this.allowInput = true;
+		this.modelSet = true;
+
+		if(ringoSelected) {this.icon = ringoIcon}
+		else if(dannySelected) {this.icon = dannyIcon}
 		// x, y, wScl, maxW, minW, key
-		this.snare = new Drum(w, h, this.alpha, this.col*2.5, this.row*3.8, 8, 150, 65, "G");
-    this.hihat = new Drum(w, h, this.alpha, this.col*1.5, this.row*3, 10, 120, 50, "F");
+		this.snare = new Drum(w, h, this.alpha, this.col*2.7, this.row*3.8, 8, 150, 65, "G");
+    this.hihat = new Drum(w, h, this.alpha, this.col*1.8, this.row*3, 9, 120, 50, "F");
     this.tom1 = new Drum(w, h, this.alpha, this.col*3.5, this.row*2.7, 12, 100, 40, "T");
     this.tom2 = new Drum(w, h, this.alpha, this.col*4.5, this.row*2.7, 11, 110, 45, "Y");
-    this.bass = new Drum(w, h, this.alpha, this.col*5.8, this.row*3.7, 6, 200, 80, "J");
+    this.bass = new Drum(w, h, this.alpha, this.col*5.7, this.row*3.7, 6, 200, 80, "J");
     this.kick = new Drum(w, h, this.alpha, this.col*4, this.row*4.8, 4, 240, 130, "H");
 
 		downloadBtn = createButton('download Result');
 		downloadBtn.parent('downloadBtn')
 		downloadBtn.mousePressed(download);
+
+		this.setModel();
+
 	}
 
+
 	run() {
-    stroke(255, this.alpha);
-    line(this.col, this.row*6, this.col, this.row*6.5);
-    line(this.col*7, this.row*6, this.col*7, this.row*6.5);
-		push();
-		noStroke();
-		fill(12, 45, 75);
-		ellipse(this.col*7, this.row, 50, 50);
-		fill(255);
-		textSize(20);
-		text("i", this.col*7, this.row);
-		pop();
-		console.log(this.allowInput);
 
     this.snare.show();
 		this.hihat.show();
@@ -58,16 +55,16 @@ class DrumOff extends Scene {
       this.runTimeline();
     }
 
-		if (this.showInfo) {
-			fill(12, 45, 75)
-			rect(this.col*4, this.row*4, this.col*8 - 50, this.row*8 - 50);
-			fill(255);
-			text("Information on the project will be shown here", this.col*4, this.row*4);
-		}
+		// if (this.showInfo) {
+		// 	fill(12, 45, 75)
+		// 	rect(this.col*4, this.row*4, this.col*8 - 50, this.row*8 - 50);
+		// 	fill(255);
+		// 	text("Information on the project will be shown here", this.col*4, this.row*4);
+		// }
 
 
 		tint(255, this.iconAlpha);
-		image(ringoIcon, this.col*4, this.row*4, 150, 150);
+		image(this.icon, this.col*4, this.row*4, 150, 150);
 
 
 	  if(rnnPlayer.getPlayState() == "started") {
@@ -86,6 +83,13 @@ class DrumOff extends Scene {
 			if (this.iconAlpha < 0) {this.iconAlpha = 0}
 		}
 
+	}
+
+	setModel() {
+		if (dannySelected) {
+		  checkpointURL = "dannyModel";
+			this.modelSet = false;
+		}
 	}
 
   runTimeline() {
@@ -117,13 +121,13 @@ class DrumOff extends Scene {
   }
 
 	/* Detects if mouse click is within Information icon ellipse button */
-	displayInfo(x, y) {
-		this.infoDist = dist(x, y, this.col*7, this.row);
-		if(this.infoDist < 25) {
-			this.showInfo = true;
-		}
-		console.log(this.infoDist);
-	}
+	// displayInfo(x, y) {
+	// 	this.infoDist = dist(x, y, this.col*7, this.row);
+	// 	if(this.infoDist < 25) {
+	// 		this.showInfo = true;
+	// 	}
+	// 	console.log(this.infoDist);
+	// }
 
   transition() {
     // console.log(this.alpha);

@@ -1,6 +1,8 @@
+let checkpointURL = "model";
 
-
-const checkpointURL = "model";
+if (dannySelected) {
+  checkpointURL = "dannyModel";
+}
 console.log(checkpointURL);
 let drums_rnn = mm.MusicRNN(checkpointURL);
 // let vis2;
@@ -88,8 +90,8 @@ function download() {
 }
 
 
-var rnn_steps = 25;
-var rnn_temperature = 1.5;
+let rnn_steps = 30;
+let rnn_temperature = 1.5;
 
 function setupDrumsRNN() {
   // Initialize model

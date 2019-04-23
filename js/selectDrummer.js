@@ -16,10 +16,14 @@ class SelectDrummer extends Scene {
 		this.fadeIn = true;
 		this.ringoIcon = ringo;
 
+    ringoSelected = false;
+    dannySelected = false;
+    daveSelected = false;
+
 		// w, h, a, cardPosX, cardPosY
-		this.dannyCard = new Card(w, h, this.alpha, this.c1pos, "DANNY CAREY", "TOOL", this.ringoIcon);
-		this.ringoCard = new Card(w, h, this.alpha, this.c2pos, "RINGO STARR", "THE BEATLES", this.ringoIcon);
-		this.daveCard = new Card(w, h, this.alpha, this.c3pos, "DAVE GROHL", "FOO FIGHTERS", this.ringoIcon);
+		this.dannyCard = new Card(w, h, this.alpha, this.c1pos, "DANNY CAREY", "TOOL", dannyIcon);
+		this.ringoCard = new Card(w, h, this.alpha, this.c2pos, "RINGO STARR", "THE BEATLES", ringoIcon);
+		this.daveCard = new Card(w, h, this.alpha, this.c3pos, "DAVE GROHL", "FOO FIGHTERS", ringoIcon);
 
 	}
 
@@ -54,10 +58,6 @@ class SelectDrummer extends Scene {
 
 
   transition() {
-		console.log(this.fadeIn);
-		// if((x > this.c1pos - 125 && x < this.c1pos + 125) && (y > this.row*6.4 - 30 && y < this.row*6.4 + 30)) {
-			// console.log("Change Scene");
-			// activeScene = new DrumOff(w, h, ringoIcon);
 	    this.fadeIn ? this.alpha += 10
 	    : this.alpha -= 15;
 
@@ -69,8 +69,6 @@ class SelectDrummer extends Scene {
 				this.fadeIn = false;
 	      sceneTransition = false;
 	    }
-		// }
-
   }
 
 	switchScene(x, y) {
@@ -129,7 +127,7 @@ class Card extends Scene {
 
 		push();
 		tint(255, activeScene.alpha);
-		image(ringoIcon, this.col*4, this.row*3.8, 120, 120);
+		image(this.icon, this.cardPosX, this.row*3.8, 120, 120);
 		pop();
 
 

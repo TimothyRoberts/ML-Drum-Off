@@ -5,9 +5,10 @@ let sceneTransition = false;
 let mouseCoordinates = [];
 let w, h;
 let h1font, h2font, pfont;
-let logo, ringoIcon;
+let logo, ringoIcon, dannyIcon;
 let homeBtn, chooseBtn, downloadBtn;
 let bgColor, bgColor2, currentBg;
+let dannySelected, ringoSelected, daveSelected;
 let DRUMS_INPUT;
 let TEMPORARY_INPUT;
 
@@ -29,6 +30,7 @@ let inputPitches = [];
 function preload() {
   logo = loadImage('assets/images/logo.png');
   ringoIcon = loadImage('assets/images/ringo.png');
+  dannyIcon = loadImage('assets/images/dannyIcon.png');
   h1font = loadFont('assets/type/Poppins-Bold.ttf');
   h2font = loadFont('assets/type/Poppins-Regular.ttf');
   pfont = loadFont('assets/type/OpenSans-Regular.ttf');
@@ -132,12 +134,22 @@ function mousePressed() {
     // sceneTransition = true;
     if((mouseX > activeScene.c2pos - 125 && mouseX < activeScene.c2pos + 125) && (mouseY > activeScene.row*6.4 - 30 && mouseY < activeScene.row*6.4 + 30)) {
       console.log("Ringo Starr Selected");
+      ringoSelected = true;
+      sceneTransition = true;
+    } else if((mouseX > activeScene.c1pos - 125 && mouseX < activeScene.c1pos + 125) && (mouseY > activeScene.row*6.4 - 30 && mouseY < activeScene.row*6.4 + 30)) {
+      console.log("Danny Kerry Selected");
+      dannySelected = true;
       sceneTransition = true;
     }
   }
 
   if(activeScene.id == "drumOff") {
-    activeScene.displayInfo(mouseX, mouseY);
+    if((mouseX > activeScene.col - 30 && mouseX < activeScene.col + 30) && (mouseY > activeScene.row - 30 && mouseY < activeScene.row + 30)) {
+    console.log("back to selection");
+    activeScene = new SelectDrummer(w, h, 0, this.ringoIcon);
+    sceneTransition = true;
+  }
+    // activeScene.displayInfo(mouseX, mouseY);
   }
 }
 
