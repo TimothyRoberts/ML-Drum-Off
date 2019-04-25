@@ -5,7 +5,7 @@ let sceneTransition = false;
 let mouseCoordinates = [];
 let w, h;
 let h1font, h2font, pfont;
-let logo, ringoIcon, dannyIcon;
+let logo, back, ringoIcon, dannyIcon;
 let homeBtn, chooseBtn, downloadBtn;
 let bgColor, bgColor2, currentBg;
 let dannySelected, ringoSelected, daveSelected;
@@ -29,6 +29,7 @@ let inputPitches = [];
 
 function preload() {
   logo = loadImage('assets/images/logo.png');
+  back = loadImage('assets/images/back.png');
   ringoIcon = loadImage('assets/images/ringo.png');
   dannyIcon = loadImage('assets/images/dannyIcon.png');
   h1font = loadFont('assets/type/Poppins-Bold.ttf');
@@ -82,13 +83,11 @@ function keyPressed() {
         activeScene.addInputPitch(32);
         activeScene.snare.animateDrum = true;
         activeScene.snare.animating = true;
-        // activeScene.drumkit.snare();
       } else if ((key == 'H') || (key == 'h')) {
         activeScene.activeTimeline = true;
         activeScene.addInputPitch(36);
         activeScene.kick.animateDrum = true;
         activeScene.kick.animating = true;
-      // : console.log("no");
       } else if ((key == 'T') || (key == 't')) {
         activeScene.activeTimeline = true;
         activeScene.addInputPitch(50);
@@ -125,13 +124,11 @@ function keyReleased() {
 
 function mousePressed() {
   if(activeScene.id == "home") {
-    // activeScene.switchScene(mouseX, mouseY);
     console.log("transition");
     sceneTransition = true;
   }
 
   if(activeScene.id == "selectDrummer") {
-    // sceneTransition = true;
     if((mouseX > activeScene.c2pos - 125 && mouseX < activeScene.c2pos + 125) && (mouseY > activeScene.row*6.4 - 30 && mouseY < activeScene.row*6.4 + 30)) {
       console.log("Ringo Starr Selected");
       ringoSelected = true;
@@ -144,12 +141,11 @@ function mousePressed() {
   }
 
   if(activeScene.id == "drumOff") {
-    if((mouseX > activeScene.col - 30 && mouseX < activeScene.col + 30) && (mouseY > activeScene.row - 30 && mouseY < activeScene.row + 30)) {
+    if((mouseX > activeScene.col*0.75 - 40 && mouseX < activeScene.col*0.75 + 40) && (mouseY > activeScene.row - 40 && mouseY < activeScene.row + 40)) {
     console.log("back to selection");
     activeScene = new SelectDrummer(w, h, 0, this.ringoIcon);
     sceneTransition = true;
-  }
-    // activeScene.displayInfo(mouseX, mouseY);
+    }
   }
 }
 

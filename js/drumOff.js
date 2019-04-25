@@ -15,16 +15,17 @@ class DrumOff extends Scene {
 		this.infoDist;
 		this.allowInput = true;
 		this.modelSet = true;
+		tint(255);
 
 		if(ringoSelected) {this.icon = ringoIcon}
 		else if(dannySelected) {this.icon = dannyIcon}
 		// x, y, wScl, maxW, minW, key
-		this.snare = new Drum(w, h, this.alpha, this.col*2.7, this.row*3.8, 8, 150, 65, "G");
-    this.hihat = new Drum(w, h, this.alpha, this.col*1.8, this.row*3, 9, 120, 50, "F");
+		this.snare = new Drum(w, h, this.alpha, this.col*2.7, this.row*3.8, 9, 150, 65, "G");
+    this.hihat = new Drum(w, h, this.alpha, this.col*1.8, this.row*3, 11, 110, 45, "F");
     this.tom1 = new Drum(w, h, this.alpha, this.col*3.5, this.row*2.7, 12, 100, 40, "T");
     this.tom2 = new Drum(w, h, this.alpha, this.col*4.5, this.row*2.7, 11, 110, 45, "Y");
-    this.bass = new Drum(w, h, this.alpha, this.col*5.7, this.row*3.7, 6, 200, 80, "J");
-    this.kick = new Drum(w, h, this.alpha, this.col*4, this.row*4.8, 4, 240, 130, "H");
+    this.bass = new Drum(w, h, this.alpha, this.col*5.7, this.row*3.7, 7, 180, 80, "J");
+    this.kick = new Drum(w, h, this.alpha, this.col*4, this.row*5, 4, 240, 130, "H");
 
 		downloadBtn = createButton('download Result');
 		downloadBtn.parent('downloadBtn')
@@ -36,6 +37,13 @@ class DrumOff extends Scene {
 
 
 	run() {
+
+		image(back, this.col*0.75, this.row, 80, 80);
+
+		fill(bgColor2);
+		loadFont(h1font);
+		textSize(28)
+		text("Use the keyboard to input sequence", this.col*4, this.row);
 
     this.snare.show();
 		this.hihat.show();
@@ -63,26 +71,22 @@ class DrumOff extends Scene {
 		// }
 
 
-		tint(255, this.iconAlpha);
-		image(this.icon, this.col*4, this.row*4, 150, 150);
+		// tint(255, this.iconAlpha);
+
 
 
 	  if(rnnPlayer.getPlayState() == "started") {
 			activeScene.allowInput = false;
 			activeScene.alpha -= 5;
-			if (activeScene.alpha < 120) {activeScene.alpha = 120}
-			this.iconAlpha += 10;
-			if (this.iconAlpha > 255) {this.iconAlpha = 255}
-		}
-	  else if (rnnPlayer.getPlayState() == "stopped") {
-			// setTimeout(function(){ console.log("timeout!");; }, 500);
+			if (activeScene.alpha <= 120) {
+				image(this.icon, this.col*4, this.row*4, 150, 150);
+				activeScene.alpha = 120;
+			}
+		} else if (rnnPlayer.getPlayState() == "stopped") {
 	  	activeScene.allowInput = true;
-			activeScene.alpha += 5;
 			if (activeScene.alpha > 255) {activeScene.alpha = 255}
-			this.iconAlpha -=10;
-			if (this.iconAlpha < 0) {this.iconAlpha = 0}
+			else {activeScene.alpha += 5;}
 		}
-
 	}
 
 	setModel() {
@@ -96,7 +100,10 @@ class DrumOff extends Scene {
     this.inputTime = map(this.timelinePos, 0, this.col*6, 0, 5);
     push();
     rectMode(CORNER)
-    rect(this.col, this.row*6, this.timelinePos += this.increment, 20);
+		stroke(bgColor2);
+		line(this.col, this.row*7-10, this.col, this.row*7+30);
+		line(this.col*8, this.row*7-10, this.col*8, this.row*7+30);
+    rect(this.col, this.row*7, this.timelinePos += this.increment, 20);
     pop();
     if(this.timelinePos > this.col*6) {
       createSampleSequences();
@@ -120,28 +127,18 @@ class DrumOff extends Scene {
     endInputs.push(this.inputTime);
   }
 
-	/* Detects if mouse click is within Information icon ellipse button */
-	// displayInfo(x, y) {
-	// 	this.infoDist = dist(x, y, this.col*7, this.row);
-	// 	if(this.infoDist < 25) {
-	// 		this.showInfo = true;
-	// 	}
-	// 	console.log(this.infoDist);
-	// }
-
   transition() {
     // console.log(this.alpha);
-      this.fadeIn ? this.alpha += 10
-      : this.alpha -= 15;
-      if (this.alpha < 0) {
-        // activeScene.switchScene();
-        this.fadeIn = true;
-      };
-      if (this.alpha > 255) {
-        sceneTransition = false;
-      }
+    this.fadeIn ? this.alpha += 10
+    : this.alpha -= 15;
+    if (this.alpha < 0) {
+      // activeScene.switchScene();
+      this.fadeIn = true;
+    };
+    if (this.alpha > 255) {
+      sceneTransition = false;
+    }
   }
-
 }
 
 class Drum extends Scene {
@@ -166,13 +163,8 @@ class Drum extends Scene {
 
   show() {
 
-		stroke(bgColor2);
-		noFill();
-		ellipse(this.col, this.row, 50, 50);
-
-
 		push();
-		// translate(0, -this.col)
+		translate(this.col*0.15, this.row*0.5)
     fill(lerpColor(bgColor, bgColor2, 0.2));
 		stroke(12, 45, 75, activeScene.alpha);
 		strokeWeight(2);
