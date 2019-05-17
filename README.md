@@ -1,5 +1,5 @@
 ML Drum-Off
 =================
 
-[Link](Public)
+[Link](public)
 -------------------
