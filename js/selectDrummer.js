@@ -15,6 +15,7 @@ class SelectDrummer extends Scene {
 		this.c3pos = this.col*6.5;
 		this.fadeIn = true;
 		this.ringoIcon = ringo;
+		tint(255);
 
     ringoSelected = false;
     dannySelected = false;
@@ -23,7 +24,7 @@ class SelectDrummer extends Scene {
 		// w, h, a, cardPosX, cardPosY
 		this.dannyCard = new Card(w, h, this.alpha, this.c1pos, "DANNY CAREY", "TOOL", dannyIcon);
 		this.ringoCard = new Card(w, h, this.alpha, this.c2pos, "RINGO STARR", "THE BEATLES", ringoIcon);
-		this.daveCard = new Card(w, h, this.alpha, this.c3pos, "DAVE GROHL", "FOO FIGHTERS", ringoIcon);
+		this.daveCard = new Card(w, h, this.alpha, this.c3pos, "DAVE GROHL", "FOO FIGHTERS", daveIcon);
 
 	}
 
@@ -36,9 +37,9 @@ class SelectDrummer extends Scene {
   }
 
 	run() {
-		// super.display();
-		// image(this.logo, this.col*1, this.row*1, this.logoW, this.logoH);
-		// TITLE
+
+		// image(back, this.col*0.75, this.row, 80, 80);
+
 		push();
 		textSize(this.h1);
 		textLeading(12);

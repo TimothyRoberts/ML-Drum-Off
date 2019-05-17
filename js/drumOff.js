@@ -19,6 +19,7 @@ class DrumOff extends Scene {
 
 		if(ringoSelected) {this.icon = ringoIcon}
 		else if(dannySelected) {this.icon = dannyIcon}
+		else if(daveSelected) {this.icon = daveIcon}
 		// x, y, wScl, maxW, minW, key
 		this.snare = new Drum(w, h, this.alpha, this.col*2.7, this.row*3.8, 9, 150, 65, "G");
     this.hihat = new Drum(w, h, this.alpha, this.col*1.8, this.row*3, 11, 110, 45, "F");
@@ -41,7 +42,7 @@ class DrumOff extends Scene {
 		image(back, this.col*0.75, this.row, 80, 80);
 
 		fill(bgColor2);
-		loadFont(h1font);
+		// loadFont(h1font);
 		textSize(28)
 		text("Use the keyboard to input sequence", this.col*4, this.row);
 
@@ -63,15 +64,6 @@ class DrumOff extends Scene {
       this.runTimeline();
     }
 
-		// if (this.showInfo) {
-		// 	fill(12, 45, 75)
-		// 	rect(this.col*4, this.row*4, this.col*8 - 50, this.row*8 - 50);
-		// 	fill(255);
-		// 	text("Information on the project will be shown here", this.col*4, this.row*4);
-		// }
-
-
-		// tint(255, this.iconAlpha);
 
 
 
@@ -89,11 +81,16 @@ class DrumOff extends Scene {
 		}
 	}
 
+//ERROR
 	setModel() {
 		if (dannySelected) {
 		  checkpointURL = "dannyModel";
 			this.modelSet = false;
 		}
+	 // if (daveSelected) {
+		// 	checkpointURL = "daveModel";
+		// 	this.modelSet = false;
+		// }
 	}
 
   runTimeline() {
@@ -102,7 +99,7 @@ class DrumOff extends Scene {
     rectMode(CORNER)
 		stroke(bgColor2);
 		line(this.col, this.row*7-10, this.col, this.row*7+30);
-		line(this.col*8, this.row*7-10, this.col*8, this.row*7+30);
+		line(this.col*7, this.row*7-10, this.col*7, this.row*7+30);
     rect(this.col, this.row*7, this.timelinePos += this.increment, 20);
     pop();
     if(this.timelinePos > this.col*6) {

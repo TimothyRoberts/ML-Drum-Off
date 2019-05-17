@@ -5,7 +5,7 @@ let sceneTransition = false;
 let mouseCoordinates = [];
 let w, h;
 let h1font, h2font, pfont;
-let logo, back, ringoIcon, dannyIcon;
+let logo, back, ringoIcon, dannyIcon, daveIcon;
 let homeBtn, chooseBtn, downloadBtn;
 let bgColor, bgColor2, currentBg;
 let dannySelected, ringoSelected, daveSelected;
@@ -32,6 +32,7 @@ function preload() {
   back = loadImage('assets/images/back.png');
   ringoIcon = loadImage('assets/images/ringo.png');
   dannyIcon = loadImage('assets/images/dannyIcon.png');
+  daveIcon = loadImage('assets/images/daveIcon.png');
   h1font = loadFont('assets/type/Poppins-Bold.ttf');
   h2font = loadFont('assets/type/Poppins-Regular.ttf');
   pfont = loadFont('assets/type/OpenSans-Regular.ttf');
@@ -66,6 +67,16 @@ function setup() {
 function draw() {
   background(currentBg);
   activeScene.run();
+
+  push();
+  fill(12, 45, 75);
+  ellipse(activeScene.col*7.2, activeScene.row, 50, 50);
+  fill(255);
+  textFont(h2font);
+  textSize(24)
+  text("i", activeScene.col*7.2, activeScene.row-3)
+  pop();
+
   if (sceneTransition) {activeScene.transition()};
 }
 
@@ -137,14 +148,30 @@ function mousePressed() {
       console.log("Danny Kerry Selected");
       dannySelected = true;
       sceneTransition = true;
+    } else if((mouseX > activeScene.c3pos - 125 && mouseX < activeScene.c3pos + 125) && (mouseY > activeScene.row*6.4 - 30 && mouseY < activeScene.row*6.4 + 30)) {
+      console.log("Dave Grohl Selected");
+      daveSelected = true;
+      sceneTransition = true;
     }
+    // else if((mouseX > activeScene.col*0.75 - 40 && mouseX < activeScene.col*0.75 + 40) && (mouseY > activeScene.row - 40 && mouseY < activeScene.row + 40)) {
+    //   console.log("back to home");
+    //   activeScene = new Home(w, h, 255, logo, ringoIcon);
+    //   sceneTransition = true;
+    //   }
   }
 
+  //Drum hits
   if(activeScene.id == "drumOff") {
     if((mouseX > activeScene.col*0.75 - 40 && mouseX < activeScene.col*0.75 + 40) && (mouseY > activeScene.row - 40 && mouseY < activeScene.row + 40)) {
     console.log("back to selection");
     activeScene = new SelectDrummer(w, h, 0, this.ringoIcon);
     sceneTransition = true;
+  } else if((mouseX > activeScene.snare.posX - activeScene.snare.drumRad/2
+             && mouseX < activeScene.snare.posX + activeScene.snare.drumRad/2)
+             && (mouseY > activeScene.snare.posY
+             && mouseY < activeScene.snare.posY + activeScene.snare.drumRad)) {
+      console.log("SNARE");
+
     }
   }
 }

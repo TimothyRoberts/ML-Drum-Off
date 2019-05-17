@@ -1,11 +1,9 @@
 let checkpointURL = "model";
 
-if (dannySelected) {
-  checkpointURL = "dannyModel";
-}
-console.log(checkpointURL);
+// if (dannySelected) {checkpointURL = "dannyModel";}
+// if (daveSelected) {checkpointURL = "daveModel";}
+
 let drums_rnn = mm.MusicRNN(checkpointURL);
-// let vis2;
 console.log(drums_rnn);
 
 let player, player2, tempPlayer, viz, vis2, vizPLayer, vizPLayer2;
