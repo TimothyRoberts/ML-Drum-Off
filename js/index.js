@@ -162,64 +162,66 @@ function mousePressed() {
 
   //Drum hits
   if(activeScene.id == "drumOff") {
-    if((mouseX > activeScene.col*0.75 - 40 && mouseX < activeScene.col*0.75 + 40) && (mouseY > activeScene.row - 40 && mouseY < activeScene.row + 40)) {
-    console.log("back to selection");
-    activeScene = new SelectDrummer(w, h, 0, this.ringoIcon);
-    sceneTransition = true;
-  } else if((mouseX > activeScene.snare.posX - activeScene.snare.drumRad/2
-             && mouseX < activeScene.snare.posX + activeScene.snare.drumRad/2)
-             && (mouseY > activeScene.snare.posY
-             && mouseY < activeScene.snare.posY + activeScene.snare.drumRad)) {
-       activeScene.activeTimeline = true;
-       activeScene.addInputPitch(32);
-       activeScene.snare.animateDrum = true;
-       activeScene.snare.animating = true;
-       activeScene.addInputTime();
-  } else if((mouseX > activeScene.hihat.posX - activeScene.hihat.drumRad/2
-             && mouseX < activeScene.hihat.posX + activeScene.hihat.drumRad/2)
-             && (mouseY > activeScene.hihat.posY
-             && mouseY < activeScene.hihat.posY + activeScene.hihat.drumRad)) {
-       activeScene.activeTimeline = true;
-       activeScene.addInputPitch(42);
-       activeScene.hihat.animateDrum = true;
-       activeScene.hihat.animating = true;
-       activeScene.addInputTime();
-  } else if((mouseX > activeScene.tom1.posX - activeScene.tom1.drumRad/2
-             && mouseX < activeScene.tom1.posX + activeScene.tom1.drumRad/2)
-             && (mouseY > activeScene.tom1.posY
-             && mouseY < activeScene.tom1.posY + activeScene.tom1.drumRad)) {
-       activeScene.activeTimeline = true;
-       activeScene.addInputPitch(50);
-       activeScene.tom1.animateDrum = true;
-       activeScene.tom1.animating = true;
-       activeScene.addInputTime();
-    } else if((mouseX > activeScene.tom2.posX - activeScene.tom2.drumRad/2
-             && mouseX < activeScene.tom2.posX + activeScene.tom2.drumRad/2)
-             && (mouseY > activeScene.tom2.posY
-             && mouseY < activeScene.tom2.posY + activeScene.tom2.drumRad)) {
-       activeScene.activeTimeline = true;
-       activeScene.addInputPitch(48);
-       activeScene.tom2.animateDrum = true;
-       activeScene.tom2.animating = true;
-       activeScene.addInputTime();
-    } else if((mouseX > activeScene.bass.posX - activeScene.bass.drumRad/2
-             && mouseX < activeScene.bass.posX + activeScene.bass.drumRad/2)
-             && (mouseY > activeScene.bass.posY
-             && mouseY < activeScene.bass.posY + activeScene.bass.drumRad)) {
-       activeScene.activeTimeline = true;
-       activeScene.addInputPitch(45);
-       activeScene.bass.animateDrum = true;
-       activeScene.bass.animating = true;
-       activeScene.addInputTime();
-    } else if((mouseX > activeScene.kick.posX - activeScene.kick.drumRad/2
-             && mouseX < activeScene.kick.posX + activeScene.kick.drumRad/2)
-             && (mouseY > activeScene.kick.posY
-             && mouseY < activeScene.kick.posY + activeScene.kick.drumRad)) {
-       activeScene.activeTimeline = true;
-       activeScene.addInputPitch(36);
-       activeScene.kick.animateDrum = true;
-       activeScene.kick.animating = true;
-       activeScene.addInputTime();
+    if(activeScene.allowInput) {
+      if((mouseX > activeScene.col*0.75 - 40 && mouseX < activeScene.col*0.75 + 40) && (mouseY > activeScene.row - 40 && mouseY < activeScene.row + 40)) {
+      console.log("back to selection");
+      activeScene = new SelectDrummer(w, h, 0, this.ringoIcon);
+      sceneTransition = true;
+    } else if((mouseX > activeScene.snare.posX - activeScene.snare.drumRad/2
+               && mouseX < activeScene.snare.posX + activeScene.snare.drumRad/2)
+               && (mouseY > activeScene.snare.posY
+               && mouseY < activeScene.snare.posY + activeScene.snare.drumRad)) {
+         activeScene.activeTimeline = true;
+         activeScene.addInputPitch(32);
+         activeScene.snare.animateDrum = true;
+         activeScene.snare.animating = true;
+         activeScene.addInputTime();
+    } else if((mouseX > activeScene.hihat.posX - activeScene.hihat.drumRad/2
+               && mouseX < activeScene.hihat.posX + activeScene.hihat.drumRad/2)
+               && (mouseY > activeScene.hihat.posY
+               && mouseY < activeScene.hihat.posY + activeScene.hihat.drumRad)) {
+         activeScene.activeTimeline = true;
+         activeScene.addInputPitch(42);
+         activeScene.hihat.animateDrum = true;
+         activeScene.hihat.animating = true;
+         activeScene.addInputTime();
+    } else if((mouseX > activeScene.tom1.posX - activeScene.tom1.drumRad/2
+               && mouseX < activeScene.tom1.posX + activeScene.tom1.drumRad/2)
+               && (mouseY > activeScene.tom1.posY
+               && mouseY < activeScene.tom1.posY + activeScene.tom1.drumRad)) {
+         activeScene.activeTimeline = true;
+         activeScene.addInputPitch(50);
+         activeScene.tom1.animateDrum = true;
+         activeScene.tom1.animating = true;
+         activeScene.addInputTime();
+      } else if((mouseX > activeScene.tom2.posX - activeScene.tom2.drumRad/2
+               && mouseX < activeScene.tom2.posX + activeScene.tom2.drumRad/2)
+               && (mouseY > activeScene.tom2.posY
+               && mouseY < activeScene.tom2.posY + activeScene.tom2.drumRad)) {
+         activeScene.activeTimeline = true;
+         activeScene.addInputPitch(48);
+         activeScene.tom2.animateDrum = true;
+         activeScene.tom2.animating = true;
+         activeScene.addInputTime();
+      } else if((mouseX > activeScene.bass.posX - activeScene.bass.drumRad/2
+               && mouseX < activeScene.bass.posX + activeScene.bass.drumRad/2)
+               && (mouseY > activeScene.bass.posY
+               && mouseY < activeScene.bass.posY + activeScene.bass.drumRad)) {
+         activeScene.activeTimeline = true;
+         activeScene.addInputPitch(45);
+         activeScene.bass.animateDrum = true;
+         activeScene.bass.animating = true;
+         activeScene.addInputTime();
+      } else if((mouseX > activeScene.kick.posX - activeScene.kick.drumRad/2
+               && mouseX < activeScene.kick.posX + activeScene.kick.drumRad/2)
+               && (mouseY > activeScene.kick.posY
+               && mouseY < activeScene.kick.posY + activeScene.kick.drumRad)) {
+         activeScene.activeTimeline = true;
+         activeScene.addInputPitch(36);
+         activeScene.kick.animateDrum = true;
+         activeScene.kick.animating = true;
+         activeScene.addInputTime();
+      }
     }
   }
 }
