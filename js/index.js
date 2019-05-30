@@ -74,14 +74,14 @@ function draw() {
   background(currentBg);
   activeScene.run();
 
-  push();
-  fill(12, 45, 75);
-  ellipse(activeScene.col*7.2, activeScene.row, 50, 50);
-  fill(255);
-  textFont(h2font);
-  textSize(24)
-  text("i", activeScene.col*7.2, activeScene.row-3)
-  pop();
+  // push();
+  // fill(12, 45, 75);
+  // ellipse(activeScene.col*7.2, activeScene.row, 50, 50);
+  // fill(255);
+  // textFont(h2font);
+  // textSize(24)
+  // text("i", activeScene.col*7.2, activeScene.row-3)
+  // pop();
 
   if (sceneTransition) {activeScene.transition()};
 }
