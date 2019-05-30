@@ -9,6 +9,7 @@ let logo, back, ringoIcon, dannyIcon, daveIcon;
 let homeBtn, chooseBtn, downloadBtn;
 let bgColor, bgColor2, currentBg;
 let dannySelected, ringoSelected, daveSelected;
+let dannySample, ringoSample, daveSample;
 let DRUMS_INPUT;
 let TEMPORARY_INPUT;
 
@@ -36,6 +37,9 @@ function preload() {
   h1font = loadFont('assets/type/Poppins-Bold.ttf');
   h2font = loadFont('assets/type/Poppins-Regular.ttf');
   pfont = loadFont('assets/type/OpenSans-Regular.ttf');
+  dannySample = loadSound('assets/samples/dannySample.mp3');
+  ringoSample = loadSound('assets/samples/ringoSample.mp3');
+  daveSample = loadSound('assets/samples/daveSample.mp3');
 }
 
 /********************** SETUP **********************
@@ -59,6 +63,8 @@ function setup() {
   bgColor = color(250, 75, 75);
   bgColor2 = color(250, 215, 70);
   currentBg = bgColor;
+  dannySample.setVolume(0.5);
+  // dannySample.play();
 
   // width, height, alpha, logoImage
 	activeScene = new Home(w, h, 255, logo, ringoIcon);
@@ -152,6 +158,12 @@ function mousePressed() {
       console.log("Dave Grohl Selected");
       daveSelected = true;
       sceneTransition = true;
+    } else if((mouseX > activeScene.c1pos - 125 && mouseX < activeScene.c1pos + 125) && (mouseY > activeScene.row*5.38 - 20 && mouseY < activeScene.row*5.38 + 20)) {
+      dannySample.play();
+    } else if((mouseX > activeScene.c2pos - 125 && mouseX < activeScene.c2pos + 125) && (mouseY > activeScene.row*5.38 - 20 && mouseY < activeScene.row*5.38 + 20)) {
+      ringoSample.play();
+    } else if((mouseX > activeScene.c3pos - 125 && mouseX < activeScene.c3pos + 125) && (mouseY > activeScene.row*5.38 - 20 && mouseY < activeScene.row*5.38 + 20)) {
+      daveSample.play();
     }
     // else if((mouseX > activeScene.col*0.75 - 40 && mouseX < activeScene.col*0.75 + 40) && (mouseY > activeScene.row - 40 && mouseY < activeScene.row + 40)) {
     //   console.log("back to home");

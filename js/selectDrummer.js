@@ -88,9 +88,9 @@ class Card extends Scene {
 			this.band = band;
 			this.cardPosX = cpX;
 			this.cardPosY = this.row*4.6;
-			this.buttonPosY = this.row*6.4;
-			this.namePosY = this.row*2.5;
-			this.bandPosY = this.row*2.85;
+			this.buttonPosY = this.row*6.2;
+			this.namePosY = this.row*2.7;
+			this.bandPosY = this.row*3.1;
 			this.icon = icon;
 			// sets logo width to 850 if it excedes this width
 			(windowWidth/4 > 380) ? this.cardW = 380
@@ -118,7 +118,7 @@ class Card extends Scene {
 		// fill(12, 45, 75);
 		// fill(255, 150);
 		// fill(12, 45, 75, activeScene.alpha);
-		// rect(this.col*4, this.row*2.5, this.cardW, 60);
+		//rect(this.col*4, this.row*2.5, this.cardW, 60);
 		fill(bgColor, activeScene.alpha);
 
 		textFont(h2font);
@@ -128,7 +128,17 @@ class Card extends Scene {
 
 		push();
 		tint(255, activeScene.alpha);
-		image(this.icon, this.cardPosX, this.row*3.8, 120, 120);
+		image(this.icon, this.cardPosX, this.row*4.1, 120, 120);
+		pop();
+
+
+		push();
+		tint(255, activeScene.alpha);
+		rect(this.cardPosX, this.row*5.4, 220, 40, 20, 20);
+    fill(250, 215, 70);
+    triangle(this.cardPosX - 100, this.row*5.4 + 8, this.cardPosX - 100, this.row*5.4 - 8, this.cardPosX - 85, this.row*5.4);
+		textSize(18);
+    text('Play Sample', this.cardPosX, this.row*5.38);
 		pop();
 
 
