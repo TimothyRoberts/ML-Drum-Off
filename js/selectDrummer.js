@@ -90,7 +90,7 @@ class Card extends Scene {
 			this.cardPosY = this.row*4.6;
 			this.buttonPosY = this.row*6;
 			this.namePosY = this.row*3;
-			this.bandPosY = this.row*3.5;
+			this.bandPosY = this.row*3.35;
 			this.icon = icon;
 			// sets logo width to 850 if it excedes this width
 			(windowWidth/4 > 380) ? this.cardW = 380
