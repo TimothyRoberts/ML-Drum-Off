@@ -88,9 +88,9 @@ class Card extends Scene {
 			this.band = band;
 			this.cardPosX = cpX;
 			this.cardPosY = this.row*4.6;
-			this.buttonPosY = this.row*6.2;
-			this.namePosY = this.row*2.7;
-			this.bandPosY = this.row*3.1;
+			this.buttonPosY = this.row*6;
+			this.namePosY = this.row*3;
+			this.bandPosY = this.row*3.5;
 			this.icon = icon;
 			// sets logo width to 850 if it excedes this width
 			(windowWidth/4 > 380) ? this.cardW = 380
@@ -128,7 +128,7 @@ class Card extends Scene {
 
 		push();
 		tint(255, activeScene.alpha);
-		image(this.icon, this.cardPosX, this.row*4.1, 120, 120);
+		image(this.icon, this.cardPosX, this.row*4.2, 120, 120);
 		pop();
 
 
